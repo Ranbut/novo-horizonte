@@ -1,0 +1,60 @@
+#title{
+    color: white;
+    font-size: 40px;
+    text-shadow: 0px 2px #000000;
+}
+
+#welcome{
+    background: linear-gradient(180deg, rgb(19, 96, 132) 0%, rgb(12.27, 51.69, 70.13) 100%);
+}
+
+#specialties{
+    display: flex;
+    align-content: center;
+    margin-left: 15vw;
+    margin-right: 15vw;
+    margin-bottom: 30px;
+    gap: 115px;
+    text-align: center;
+}
+
+#specialties-text div{
+    font-size: 24px;
+    width: 591px;
+}
+
+#specialties-text h4{
+    font-size: 40px;
+}
+
+#specialties-text button{
+    margin-top: 17px;
+    color: white;
+    width: 281px;
+    height: 56px;
+    font-size: 24px;
+    font-weight: 400;
+    text-shadow: 0px 4px 4px #00000040;
+    border: 2px solid #136084;
+    border-radius: 10px;
+    background-color: #136084;
+}
+.highlight{
+    margin-top: 30px;
+}
+
+.highlight img{
+    width: 555px;
+    height: 275px;
+}
+
+.cards{
+    margin-top: 50px;
+    margin-left: 13vw;
+    display: flex;
+    gap: 130px;
+}
+
+.card{
+    margin-top: 20px;
+}
