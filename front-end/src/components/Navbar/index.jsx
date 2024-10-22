@@ -1,31 +1,51 @@
+import styled from "styled-components"
 import { Link } from "react-router-dom"
-import './style.css'
 
 export default function Navbar(){
     return(      
-    <header className="navbar">
-        <div className="navbar-options">
-          <div className="navbar-option">
-          <Link to="/">
-            Inicío
-          </Link>
-          </div>
-          <div className="navbar-option">
-          <Link to="specialties">
-            Especialidades
-          </Link>
-          </div>
-          <div className="navbar-option">
-          <Link to="locations">
-            Centros de Saúde
-          </Link>
-          </div>
-          <div className="navbar-option">
-          <Link to="about-us">
-            Sobre Nós
-          </Link>
-          </div>
-        </div>
-      </header>
+    <NavBar>
+        <OptionsContainer>
+          <Option>
+            <Link to="/">
+              Inicío
+            </Link>
+          </Option>
+          <Option>
+            <Link to="specialties">
+              Especialidades
+            </Link>
+          </Option>
+          <Option>
+            <Link to="locations">
+              Centros de Saúde
+            </Link>
+          </Option>
+          <Option>
+            <Link to="about-us">
+              Sobre Nós
+            </Link>
+          </Option>
+        </OptionsContainer>
+      </NavBar>
       )
 }
+
+const NavBar = styled.header`
+    background: linear-gradient(180deg, rgb(19, 96, 132) 0%, rgb(12.27, 51.69, 70.13) 100%);
+    height: 68px;
+    text-shadow: 0px 2px #000000;
+    a {
+    color: white;
+    text-decoration: none; /* no underline */
+    }
+`
+
+const OptionsContainer = styled.div`
+  margin-left: 40vw;
+  display: flex;
+  gap: 20px;
+`;
+
+const Option = styled.div`
+  margin-top: 25px;
+`

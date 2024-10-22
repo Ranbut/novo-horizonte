@@ -53,14 +53,14 @@ const TitleWelcome = styled.h2`
     text-shadow: 0px 2px #000000;
 `;
 
-  const CardsContainers = styled.div`
+const CardsContainers = styled.div`
     margin-top: 50px;
     margin-left: 13vw;
     display: flex;
     gap: 130px;
   `;
 
-  const Card = styled.div`
+const Card = styled.div`
     margin-top: 20px;
 `;
 
