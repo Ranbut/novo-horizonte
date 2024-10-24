@@ -11,17 +11,17 @@ export default function Navbar(){
             </Link>
           </Option>
           <Option>
-            <Link to="specialties">
+            <Link to="/specialties">
               Especialidades
             </Link>
           </Option>
           <Option>
-            <Link to="locations">
+            <Link to="/locations">
               Centros de Saúde
             </Link>
           </Option>
           <Option>
-            <Link to="about-us">
+            <Link to="/about-us">
               Sobre Nós
             </Link>
           </Option>
