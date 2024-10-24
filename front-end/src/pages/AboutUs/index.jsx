@@ -26,7 +26,7 @@ export default function AboutUs() {
                 </HistorySection>
                 <WhySection>
                     <WhyContainer>
-                        <WhyTitle><strong>Por quê escolher a Novo Horizonte</strong></WhyTitle>
+                        <WhyTitle><strong>Por quê escolher a Novo Horizonte?</strong></WhyTitle>
                         <WhyText>Etiam mauris eros, accumsan id diam  sed, consectetur dignissim orci. Donec faucibus magna lorem, non mattis 
                         justo malesuada sed. Vivamus faucibus nisl in mi aliquam dictum. 
                         Phasellus volutpat orci id risus dignissim accumsan. Phasellus fermentum dolor non erat fermentum fringilla. 
@@ -36,7 +36,7 @@ export default function AboutUs() {
                         <WhyText>Duis ac pulvinar mauris. Aenean eget dolor eget velit imperdiet pharetra  nec in quam. Praesent congue commodo nisi, 
                         a aliquam enim ornare eget.  Aliquam convallis convallis libero sit amet scelerisque. 
                         Morbi pellentesque vestibulum odio in condimentum.</WhyText>
-                        <button>Veja os centros de saúde que temos.</button>
+                        <LocationButton>Veja os centros de saúde que temos.</LocationButton>
                     </WhyContainer>
                 </WhySection>
             <Footer/>
@@ -48,12 +48,15 @@ const HistorySection = styled.div`
     background: linear-gradient(180deg, rgb(19, 96, 132) 0%, rgb(12.27, 51.69, 70.13) 100%);
     margin-top: 30px;
     img {
-        width: 555px;
-        height: 275px;
+        width: 595px;
+        height: 375px;
     }
 `;
 
 const HistoryTitle = styled.h1`
+    color: white;
+    text-shadow: 0px 4px 4px #00000040;
+    margin-top: 21px;
     text-align: center;
 `;
 
@@ -70,9 +73,12 @@ const HistoryText = styled.div`
     font-size: 24px;
     width: 671px;
     height: 375px;
+    margin-bottom: 132px;
 `;
 
 const WhySection = styled.div`
+    margin-top: 50px;
+    margin-bottom: 50px;
     text-align: center;
     margin-left: 20vw;
     margin-right: 20vw;
@@ -85,6 +91,7 @@ const WhyContainer = styled.div`
 
 const WhyTitle = styled.div`
     font-size: 40px;
+    margin-bottom: 33px;
 `;
 
 const WhyText = styled.div`
@@ -92,4 +99,14 @@ const WhyText = styled.div`
     height: 196px;
     text-shadow: 0px 2px #0000003f;
     font-size: 24px;
+`;
+
+const LocationButton = styled.button`
+    color: white;
+    text-align: center;
+    font-size: 24px;
+    width: 281px;
+    height: 128px;
+    background: #136084;
+    border-radius: 10px;
 `;
