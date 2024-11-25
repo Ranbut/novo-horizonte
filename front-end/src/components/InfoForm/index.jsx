@@ -5,8 +5,8 @@ import { useContext, useState } from "react";
 import { updateInfo } from "../../services/clientApi";
 import useToken from "../../hooks/useToken";
 
-export default function ClientInfo(){
-    const { userData, setUserData } = useContext(UserContext);
+export default function InfoForm(){
+    const { userData } = useContext(UserContext);
     const [adress, setAdress] = useState(userData.client.adress);
     const [phone, setPhone] = useState(userData.client.phone);
     const [email, setEmail] = useState(userData.client.email);
@@ -17,11 +17,11 @@ export default function ClientInfo(){
     const token = useToken();
 
     function checkPasswordLenght(){
-        return password.length == 7;
+        return password.length >= 7;
     }
 
     function checkIfPasswordsIsEqual(){
-        return password == passwordConfirm;
+        return password === passwordConfirm;
     }
 
     async function handleSubmit(e) {

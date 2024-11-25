@@ -3,8 +3,9 @@ import styled from "styled-components"
 import userImage from "../../assets/user-profile-female.png"
 import InfoForm from "../../components/InfoForm";
 import UserContext from "../../contexts/UserContext";
+import RegisterForm from "../../components/RegisterForm";
 
-export default function Client() {
+export default function Receptionists() {
     const [name, setName] = useState("Default Name");
     const [selectedOption, setSelectedOption] = useState("InfoForm");
 
@@ -25,20 +26,20 @@ export default function Client() {
             <MainBody>
                 <OptionsBody>
                     <OptionsSelection>
-                        <Option onClick={() => setSelectedOption("MyMedics")}>Meus Médicos</Option>
-                        <Option onClick={() => setSelectedOption("MyAppointments")}>Minhas Consultas</Option>
+                        <Option onClick={() => setSelectedOption("RegisterClient")}>Registrar Paciente</Option>
+                        <Option onClick={() => setSelectedOption("MakeAppointment")}>Marca Consulta</Option>
                         <Option onClick={() => setSelectedOption("InfoForm")}>Dados Pessoais</Option>
-                        <Option>Exames</Option>
-                        <Option>Rélatorios</Option>
-                        <Option>Solicitar Receitas</Option>
-                        <Option>Área de Pagamento</Option> 
                     </OptionsSelection>
                 </OptionsBody>
                 <MainSelected>
                     <Title>
-                        {selectedOption === "InfoForm" ? "Dados Pessoais" : "Title" }
+                        {selectedOption === "InfoForm" ? "Dados Pessoais" :
+                        selectedOption === "RegisterClient" ? "Registrar Paciente" :
+                        selectedOption === "MakeAppointment" ? "Marcar Consulta" : "Title"}
                     </Title>
-                    {selectedOption === "InfoForm" ? <InfoForm/> : <></>}
+                    {selectedOption === "InfoForm" ? <InfoForm/> :
+                        selectedOption === "RegisterClient" ? <RegisterForm/> :
+                        selectedOption === "MakeAppointment" ? <></> : <></>}
                 </MainSelected>
             </MainBody>
         </>

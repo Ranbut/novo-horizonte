@@ -1,9 +1,12 @@
 import Joi from 'joi';
 
 export const createUserSchema = Joi.object({
-  cpf: Joi.string().regex(/^\d+$/).min(11).max(11).required(),
   name:  Joi.string().required(),
+  cpf: Joi.string().regex(/^\d+$/).min(11).max(11).required(),
   password: Joi.string().min(6).required(),
+  adress: Joi.string(),
+  phone: Joi.string(),
+  email: Joi.string().email(),
 });
 
 export const updateInfoSchema = Joi.object({

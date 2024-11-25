@@ -4,10 +4,10 @@ import clientService from '../services/clients-service';
 import { AuthenticatedRequest } from '@/middlewares';
 
 export async function clientsPost(req: Request, res: Response, next: NextFunction) {
-  const { cpf, name, password } = req.body;
+  const { cpf, name, email, adress, phone, password } = req.body;
 
   try {
-    const client = await clientService.createClient({ cpf, name, password });
+    const client = await clientService.createClient({ cpf, name, password, email, adress, phone });
     return res.status(httpStatus.CREATED).json({
       id: client.id,
       cpf: client.email,
