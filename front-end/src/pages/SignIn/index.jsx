@@ -1,36 +1,83 @@
 import styled from "styled-components";
+import clinic from '../../assets/photo-6.png'
 
 export default function SignIn() {
     return(
         <PageBody>
-            <img src="" alt="background"/>
+            <BackgroundImage src={clinic} alt="background"/>
             <div>
-                <div>
+                <Login>
                     <img src="" alt="logo" />
                     <div>
-                        <p>Fazer login</p>
-                        <p>Insira seu CPF e sua senha para entrar em sua conta.</p>
+                        <LoginTitle>Fazer login</LoginTitle>
+                        <LoginDescription>Insira seu CPF e sua senha para entrar em sua conta.</LoginDescription>
                         <div>
-                            <div>
-                                <div>CPF:</div>
-                                <input type="email" />
-                            </div>
-                            <div>
-                                <div>Senha:</div>
-                                <input type="password" />
-                            </div>
+                            <Field>
+                                <Label>CPF:</Label>
+                                <Input type="email" />
+                            </Field>
+                            <Field>
+                                <Label>Senha:</Label>
+                                <Input type="password" />
+                            </Field>
                         </div>
-                        <div>
+                        <ForgotPassword>
                             <div>Esqueceu de sua senha?</div>
-                            <div>Clique aqui.</div>
-                        </div>
+                            <ForgotPasswordLink>Clique aqui.</ForgotPasswordLink>
+                        </ForgotPassword>
                     </div>
-                </div>
+                </Login>
             </div>
         </PageBody>
     )
 }
 
 const PageBody = styled.div`
+    background: linear-gradient(180deg, rgb(19, 96, 132) 0%, rgb(12.27, 51.69, 70.13) 100%);
     display: flex;
+`;
+
+const BackgroundImage = styled.img`
+    width: 50vw;
+    height: 100vh;
+`;
+
+const Login = styled.div`
+    text-align: center;
+    color: white;
+    margin-left: 15vw;
+    margin-top: 30vh;
+`;
+
+const LoginTitle = styled.p`
+    font-size: 24px;
+    font-weight: bold;
+`;
+
+const LoginDescription = styled.p`
+    width: 196px;
+    height: 48px;
+    font-size: 16px;
+`;
+
+const Field = styled.div`
+    margin-left: 10px;
+    text-align: left;
+    font-weight: 600;
+`;
+
+const Label = styled.div`
+    margin-top: 8px;
+`;
+
+const Input = styled.input`
+
+`;
+
+const ForgotPassword = styled.div`
+    margin-top: 16px;
+`;
+
+const ForgotPasswordLink = styled.div`
+    color: #6DF6FF;
 `;
