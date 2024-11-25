@@ -1,6 +1,6 @@
 import { Client } from '@prisma/client';
 import bcrypt from 'bcrypt';
-import { duplicatedCPFError } from './errors';
+import { duplicatedCPFError } from '../../errors/duplication-error';
 import clientRepository from '../../repositories/clients-repository';
 
 export async function createClient({ cpf, name, password }: CreateClientParams): Promise<Client> {
@@ -35,5 +35,4 @@ const clientService = {
   clientUpdateInfo
 };
 
-export * from './errors';
 export default clientService;

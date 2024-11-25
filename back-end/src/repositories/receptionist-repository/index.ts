@@ -1,8 +1,8 @@
 import { Prisma } from '@prisma/client';
 import { prisma } from '../../config';
 
-async function findByEmail(email: string, select?: Prisma.ClientSelect) {
-  const params: Prisma.ClientFindUniqueArgs = {
+async function findByEmail(email: string, select?: Prisma.ReceptionistSelect) {
+  const params: Prisma.ReceptionistFindUniqueArgs = {
     where: {
       email,
     }
@@ -12,11 +12,11 @@ async function findByEmail(email: string, select?: Prisma.ClientSelect) {
     params.select = select;
   }
 
-  return prisma.client.findUnique(params);
+  return prisma.receptionist.findUnique(params);
 }
 
 async function findByCPF(cpf: string) {
-  return prisma.client.findUnique({
+  return prisma.receptionist.findUnique({
     where: {
       cpf,
     },
@@ -24,13 +24,13 @@ async function findByCPF(cpf: string) {
 }
 
 async function create(data: Prisma.ClientUncheckedCreateInput) {
-  return prisma.client.create({
+  return prisma.receptionist.create({
     data,
   });
 }
 
 async function updateInfo(id: number, adress: string, phone: string, email: string, password: string) {
-  return prisma.client.update({
+  return prisma.receptionist.update({
     where: {
       id
     },
@@ -43,11 +43,11 @@ async function updateInfo(id: number, adress: string, phone: string, email: stri
   });
 }
 
-const clientRepository = {
+const receptionistRepository = {
   findByEmail,
   findByCPF,
   create,
   updateInfo
 };
 
-export default clientRepository;
+export default receptionistRepository;
