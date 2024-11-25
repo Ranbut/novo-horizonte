@@ -2,6 +2,7 @@
 CREATE TABLE "Client" (
     "id" SERIAL NOT NULL,
     "cpf" VARCHAR(255) NOT NULL,
+    "name" VARCHAR(255) NOT NULL,
     "email" VARCHAR(255),
     "password" VARCHAR(255) NOT NULL,
     "adress" VARCHAR(255),

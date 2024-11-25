@@ -1,17 +1,21 @@
 import styled from "styled-components"
 import userImage from "../../assets/user-profile-female.png"
+import UserContext from "../../contexts/UserContext";
+import { useContext } from "react";
 
 export default function ClientInfo(){
+    const { userData, setUserData } = useContext(UserContext);
+
     return(
         <Body>
             <InfoBody>
                 <InputBody>
                     <InputLabel>Nome completo:</InputLabel>
-                    <InputField/>
+                    <InputField disabled value={userData.client.name}/>
                 </InputBody>
                 <InputBody>
                     <InputLabel>CPF:</InputLabel>
-                    <InputField/>
+                    <InputField disabled value={userData.client.cpf}/>
                 </InputBody>
                 <InputBody>
                     <InputLabel>Endereço:</InputLabel>
@@ -20,7 +24,7 @@ export default function ClientInfo(){
                 </InputBody>
                 <InputBody>
                     <InputLabel>Data de aniversário:</InputLabel>
-                    <InputField/>
+                    <InputField disabled/>
                 </InputBody>
                 <InputBody>
                     <InputLabel>Telefone:</InputLabel>
