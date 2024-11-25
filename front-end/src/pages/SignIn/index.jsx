@@ -1,7 +1,32 @@
 import styled from "styled-components";
 import clinic from '../../assets/photo-6.png'
+import { signIn } from "../../services/authApi";
+import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import UserContext from "../../contexts/UserContext";
 
 export default function SignIn() {
+    const [cpf, setCpf] = useState('');
+    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const navigate = useNavigate();
+    const { setUserData } = useContext(UserContext);
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        setLoading(true);
+        try {
+          const userData = await signIn(cpf, password);
+          setUserData(userData);
+          alert('Login successful!');
+          navigate(`/clients`);
+        } catch (error) {
+          setLoading(false);
+          alert('Unable to login!');
+        }
+      };
+
     return(
         <PageBody>
             <BackgroundImage src={clinic} alt="background"/>
@@ -14,13 +39,27 @@ export default function SignIn() {
                         <div>
                             <Field>
                                 <Label>CPF:</Label>
-                                <Input type="email" />
+                                <Input 
+                                    disabled={loading}
+                                    id="cpf"
+                                    name="cpf"
+                                    value={cpf}
+                                    onChange={(e) => setCpf(e.target.value)}
+                                    type="email" />
                             </Field>
                             <Field>
                                 <Label>Senha:</Label>
-                                <Input type="password" />
+                                <Input 
+                                    disabled={loading}
+                                    type="password"
+                                    id="password"
+                                    value={password}
+                                    name="password"
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    />
                             </Field>
                         </div>
+                        <button onClick={handleSubmit}>Entrar</button>
                         <ForgotPassword>
                             <div>Esqueceu de sua senha?</div>
                             <ForgotPasswordLink>Clique aqui.</ForgotPasswordLink>

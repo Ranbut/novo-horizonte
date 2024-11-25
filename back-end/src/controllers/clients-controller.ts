@@ -1,16 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
-import userService from '../services/clients-service';
+import clientService from '../services/clients-service';
 
-export async function usersPost(req: Request, res: Response, next: NextFunction) {
-  const { cpf, password } = req.body;
+export async function clientsPost(req: Request, res: Response, next: NextFunction) {
+  const { cpf, name, password } = req.body;
 
   try {
-    const user = await userService.createUser({ cpf, password });
+    const client = await clientService.createClient({ cpf, name, password });
     return res.status(httpStatus.CREATED).json({
-      id: user.id,
-      cpf: user.email,
-      password: user.password,
+      id: client.id,
+      cpf: client.email,
+      password: client.password,
     });
   } catch (error) {
     next(error);

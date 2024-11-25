@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components"
 import userImage from "../../assets/user-profile-female.png"
 import ClientInfo from "../../components/ClientInfo";
+import UserContext from "../../contexts/UserContext";
 
 export default function Client() {
-    const [name, setName] = useState("Beatrice");
+    const [name, setName] = useState("Default Name");
     const [selectedOption, setSelectedOption] = useState("ClientInfo");
+
+    const { userData } = useContext(UserContext);
+
+    useEffect(() => {
+        const userName = userData.client.name.split(' ');
+        setName(userName[0] + " " + userName[1]);
+    }, []);
 
     return(
         <>
@@ -100,6 +108,7 @@ const Option = styled.div`
 
     &:hover{
         background-color: #125575;
+        color: #6DF6FF;
         cursor: pointer;
     }
 `;
