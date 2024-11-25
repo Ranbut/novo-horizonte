@@ -29,10 +29,25 @@ async function create(data: Prisma.ClientUncheckedCreateInput) {
   });
 }
 
+async function updateInfo(id: number, adress: string, phone: string, email: string, password: string) {
+  return prisma.client.update({
+    where: {
+      id
+    },
+    data: {
+      adress,
+      phone,
+      email,
+      password
+    },
+  });
+}
+
 const userRepository = {
   findByEmail,
   findByCPF,
-  create
+  create,
+  updateInfo
 };
 
 export default userRepository;
