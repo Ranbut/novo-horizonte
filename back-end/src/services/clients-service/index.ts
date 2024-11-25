@@ -15,6 +15,12 @@ export async function createClient({ cpf, name, password }: CreateClientParams):
   });
 }
 
+export async function clientUpdateInfo(clientId: number, adress: string, phone: string, email: string, password: string) {
+  const hashedPassword = await bcrypt.hash(password, 12);
+
+  await clientRepository.updateInfo(clientId, adress, phone, email, hashedPassword);
+}
+
 async function validateUniqueCPFOrFail(cpf: string) {
   const clientWithSameCPF = await clientRepository.findByCPF(cpf);
   if (clientWithSameCPF) {
@@ -25,7 +31,8 @@ async function validateUniqueCPFOrFail(cpf: string) {
 export type CreateClientParams = Pick<Client, 'cpf' | 'name' |'password'>;
 
 const clientService = {
-  createClient
+  createClient,
+  clientUpdateInfo
 };
 
 export * from './errors';

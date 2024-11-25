@@ -1,12 +1,13 @@
 import { Router } from 'express';
-import { createUserSchema } from '../schemas';
+import { createUserSchema, updateInfoSchema } from '../schemas';
 import { authenticateToken, validateBody } from '../middlewares';
-import { clientsPost } from '../controllers';
+import { clientsPost, clientUpdateInfo } from '../controllers';
 
 const clientsRouter = Router();
 
 clientsRouter
     .post('/', validateBody(createUserSchema), clientsPost)
-    .all('/*', authenticateToken);
+    .all('/*', authenticateToken)
+    .put('/info', validateBody(updateInfoSchema), clientUpdateInfo);
 
 export { clientsRouter };

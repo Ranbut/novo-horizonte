@@ -6,6 +6,9 @@ export const createUserSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
-export const avatarSchema = Joi.object({
-  avatar: Joi.string().required(),
+export const updateInfoSchema = Joi.object({
+  adress: Joi.string().required(),
+  phone: Joi.string().required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().min(6).required()
 });
