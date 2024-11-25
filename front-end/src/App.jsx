@@ -4,7 +4,7 @@ import {
   Route,
 } from 'react-router-dom';
 
-import { Home, SignIn, AboutUs, Specialties, Locations, NotFound } from './pages/index.jsx';
+import { Home, SignIn, AboutUs, Specialties, Locations, Clients, NotFound } from './pages/index.jsx';
 
 export default function App() {
   return (
@@ -15,6 +15,7 @@ export default function App() {
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/specialties" element={<Specialties />} />
           <Route path="/locations" element={<Locations />} />
+          <Route path="/clients" element={<Clients />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>

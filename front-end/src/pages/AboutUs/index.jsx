@@ -109,4 +109,5 @@ const LocationButton = styled.button`
     height: 128px;
     background: #136084;
     border-radius: 10px;
+    border: none;
 `;
