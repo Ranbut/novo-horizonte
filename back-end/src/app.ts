@@ -4,7 +4,7 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 
 import { loadEnv, connectDb, disconnectDB } from './config';
-import { authenticationRouter, clientsRouter } from './routers';
+import { authenticationRouter, clientsRouter, receptionistRouter } from './routers';
 import { handleApplicationErrors } from './middlewares';
 
 loadEnv();
@@ -15,6 +15,7 @@ app
   .use(express.json())
   .get('/health', (_req: Request, res: Response) => res.send('OK!'))
   .use('/clients', clientsRouter)
+  .use('/receptionist', receptionistRouter)
   .use('/auth', authenticationRouter)
   .use(handleApplicationErrors);
 
