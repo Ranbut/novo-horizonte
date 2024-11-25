@@ -4,7 +4,7 @@ import {
   Route,
 } from 'react-router-dom';
 
-import { Home, SignIn, AboutUs, Specialties, Locations, Clients, NotFound } from './pages/index.jsx';
+import { Home, SignIn, AboutUs, Specialties, Locations, Clients, Receptionists, NotFound } from './pages/index.jsx';
 import { UserProvider } from './contexts/UserContext.jsx';
 
 export default function App() {
@@ -18,6 +18,7 @@ export default function App() {
           <Route path="/specialties" element={<Specialties />} />
           <Route path="/locations" element={<Locations />} />
           <Route path="/clients" element={<Clients />} />
+          <Route path="/receptionists" element={<Receptionists />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
