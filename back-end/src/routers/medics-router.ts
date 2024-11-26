@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createMedicSchema, updateInfoSchema } from '../schemas';
+import { createMedicSchema, createPrescriptionSchema, updateInfoSchema } from '../schemas';
 import { authenticateMedicToken, validateBody } from '../middlewares';
 import { medicsPost, medicUpdateInfo } from '../controllers';
 

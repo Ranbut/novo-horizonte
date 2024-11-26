@@ -9,6 +9,15 @@ async function findByCPF(cpf: string) {
   });
 }
 
+async function findByID(id: number) {
+  return prisma.client.findUnique({
+    where: {
+      id,
+    },
+  });
+}
+
+
 async function create(data: Prisma.ClientUncheckedCreateInput) {
   return prisma.client.create({
     data,
@@ -31,6 +40,7 @@ async function updateInfo(id: number, adress: string, phone: string, email: stri
 
 const clientRepository = {
   findByCPF,
+  findByID,
   create,
   updateInfo
 };
