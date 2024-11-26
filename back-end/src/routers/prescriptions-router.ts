@@ -1,11 +1,12 @@
 import { Router } from 'express';
 import { createPrescriptionSchema } from '../schemas';
-import { authenticateMedicToken, validateBody } from '../middlewares';
-import { createPrescription, deleteAllPrescriptionByUser, deletePrescription, getAllPrescriptionByUser, getPrescription } from '../controllers';
+import { authenticateClientToken, authenticateMedicToken, validateBody } from '../middlewares';
+import { createPrescription, deleteAllPrescriptionByUser, deletePrescription, getAllPrescriptionByUser, getPrescription, requestRenewPrescription } from '../controllers';
 
 const prescriptionsRouter = Router();
 
 prescriptionsRouter
+    .put('/renew/:id', authenticateClientToken, requestRenewPrescription)
     .all('/*', authenticateMedicToken)
     .get('/:id', getPrescription)
     .get('/client/:clientId', getAllPrescriptionByUser)

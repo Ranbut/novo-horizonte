@@ -10,6 +10,25 @@ export async function getPrescription(medicId: number, prescriptionId: number) {
   });
 }
 
+export async function findById(id: number) {
+  return await prisma.prescription.findFirst({
+      where: {
+          id
+      },
+  });
+}
+
+export async function requestRenewPrescription(id: number) {
+  return await prisma.prescription.update({
+      where: {
+        id
+      },
+      data:{
+        requestingRenewal: true
+      }
+  });
+}
+
 export async function getAllPrescriptionByUser(medicId: number, clientId: number) {
   return await prisma.prescription.findMany({
       where: {
@@ -45,7 +64,9 @@ export async function deleteAllPrescriptionByUser(medicId: number, clientId: num
 
 const prescriptionsRepository = {
   getPrescription,
+  findById,
   getAllPrescriptionByUser,
+  requestRenewPrescription,
   create,
   deletePrescription,
   deleteAllPrescriptionByUser

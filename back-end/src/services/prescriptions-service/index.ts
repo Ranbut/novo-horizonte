@@ -33,6 +33,18 @@ export async function createPrescription({ medicId, clientId, medications, descr
   });
 }
 
+export async function requestRenewPrescription(clientId: number, prescriptionId: number) {
+  const client = await clientRepository.findByID(clientId);
+
+  if (!client) throw notFoundError();
+
+  const prescription = await prescriptionsRepository.findById(prescriptionId);
+
+  if (!prescription) throw notFoundError();
+
+  return prescriptionsRepository.requestRenewPrescription(prescriptionId);
+}
+
 async function deletePrescription(medicId: number, prescriptionId: number) {
   await getPrescription(medicId, prescriptionId);
 
@@ -53,6 +65,7 @@ export type CreatePrescriptionParams = Pick<Prescription, 'medicId' | 'clientId'
 const prescriptionsService = {
     getPrescription,
     getAllPrescriptionByUser,
+    requestRenewPrescription,
     createPrescription,
     deletePrescription,
     deleteAllPrescriptionByUser

@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
 import prescriptionService from '../services/prescriptions-service';
-import { AuthenticatedMedicRequest } from '@/middlewares';
+import { AuthenticatedClientRequest, AuthenticatedMedicRequest } from '@/middlewares';
 
 
 export async function getPrescription(req: AuthenticatedMedicRequest, res: Response, next: NextFunction) {
@@ -44,6 +44,20 @@ export async function createPrescription(req: AuthenticatedMedicRequest, res: Re
     } catch (error) {
       next(error);
     }
+}
+
+export async function requestRenewPrescription(req: AuthenticatedClientRequest, res: Response, next: NextFunction) {
+  const { clientId } = req;
+  const { id } = req.params;
+
+  try {
+      await prescriptionService.requestRenewPrescription(clientId, Number(id));
+
+      return res.sendStatus(httpStatus.OK);
+  } catch (error) {
+      console.log(error)
+      next(error);
+  }
 }
 
 export async function deletePrescription(req: AuthenticatedMedicRequest, res: Response, next: NextFunction) {
