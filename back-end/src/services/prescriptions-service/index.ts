@@ -11,6 +11,10 @@ export async function getPrescription(medicId: number, prescriptionId: number) {
 }
 
 export async function getAllPrescriptionByUser(medicId: number, userId: number) {
+  const client = await clientRepository.findByID(userId);
+
+  if (!client) throw notFoundError();
+
   const prescriptions = await prescriptionsRepository.getAllPrescriptionByUser(medicId, userId);
 
   if (!prescriptions) throw notFoundError();
