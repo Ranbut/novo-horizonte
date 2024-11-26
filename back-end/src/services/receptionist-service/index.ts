@@ -1,4 +1,4 @@
-import { Receptionist } from '@prisma/client';
+import { Appointement, Receptionist } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { duplicatedCPFError } from '../../errors/duplication-error';
 import receptionistRepository from '../../repositories/receptionist-repository';

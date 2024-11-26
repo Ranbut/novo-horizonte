@@ -33,7 +33,8 @@ async function updateInfo(id: number, adress: string, phone: string, email: stri
       adress,
       phone,
       email,
-      password
+      password,
+      updatedAt: new Date()
     },
   });
 }

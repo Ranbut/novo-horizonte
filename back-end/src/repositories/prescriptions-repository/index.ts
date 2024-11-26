@@ -34,7 +34,8 @@ export async function requestRenewPrescription(id: number) {
         id
       },
       data:{
-        requestingRenewal: true
+        requestingRenewal: true,
+        updatedAt: new Date()
       }
   });
 }
@@ -46,7 +47,8 @@ export async function acceptRenewPrescription(id: number, renewDate: string) {
       },
       data:{
         requestingRenewal: false,
-        expirationDate: renewDate
+        expirationDate: renewDate,
+        updatedAt: new Date()
       }
   });
 }
