@@ -18,6 +18,16 @@ export async function findById(id: number) {
   });
 }
 
+export async function findByMedicPrescriptionId(medicId: number, prescriptionId: number) {
+  return await prisma.prescription.findFirst({
+      where: {
+          id: prescriptionId,
+          medicId
+      },
+  });
+}
+
+
 export async function requestRenewPrescription(id: number) {
   return await prisma.prescription.update({
       where: {
@@ -25,6 +35,18 @@ export async function requestRenewPrescription(id: number) {
       },
       data:{
         requestingRenewal: true
+      }
+  });
+}
+
+export async function acceptRenewPrescription(id: number, renewDate: string) {
+  return await prisma.prescription.update({
+      where: {
+        id
+      },
+      data:{
+        requestingRenewal: false,
+        expirationDate: renewDate
       }
   });
 }
@@ -67,6 +89,8 @@ const prescriptionsRepository = {
   findById,
   getAllPrescriptionByUser,
   requestRenewPrescription,
+  acceptRenewPrescription,
+  findByMedicPrescriptionId,
   create,
   deletePrescription,
   deleteAllPrescriptionByUser
