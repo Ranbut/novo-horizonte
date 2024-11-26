@@ -1,10 +1,12 @@
 import { Router } from 'express';
-import { singInPost } from '../controllers';
+import { singInClientPost, singInMedicPost, singInReceptionistPost } from '../controllers';
 import { validateBody } from '../middlewares';
 import { signInSchema } from '../schemas';
 
 const authenticationRouter = Router();
 
-authenticationRouter.post('/sign-in', validateBody(signInSchema), singInPost);
+authenticationRouter.post('/sign-in/clients', validateBody(signInSchema), singInClientPost);
+authenticationRouter.post('/sign-in/receptionists', validateBody(signInSchema), singInReceptionistPost);
+authenticationRouter.post('/sign-in/medics', validateBody(signInSchema), singInMedicPost);
 
 export { authenticationRouter };

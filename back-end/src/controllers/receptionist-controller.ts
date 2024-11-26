@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
 import receptionistService from '../services/receptionist-service';
-import { AuthenticatedRequest } from '@/middlewares';
+import { AuthenticatedReceptionistRequest } from '@/middlewares';
 
 export async function receptionistPost(req: Request, res: Response, next: NextFunction) {
   const { cpf, name, password } = req.body;
@@ -10,7 +10,7 @@ export async function receptionistPost(req: Request, res: Response, next: NextFu
     const receptionist = await receptionistService.createReceptionist({ cpf, name, password });
     return res.status(httpStatus.CREATED).json({
       id: receptionist.id,
-      cpf: receptionist.email,
+      cpf: receptionist.cpf,
       password: receptionist.password,
     });
   } catch (error) {
@@ -18,12 +18,12 @@ export async function receptionistPost(req: Request, res: Response, next: NextFu
   }
 }
 
-export async function receptionistUpdateInfo(req: AuthenticatedRequest, res: Response, next: NextFunction) {
-  const { id } = req.params;
+export async function receptionistUpdateInfo(req: AuthenticatedReceptionistRequest, res: Response, next: NextFunction) {
+  const { receptionistId } = req;
   const { adress, phone, email ,password } = req.body;
 
   try {
-    await receptionistService.receptionistUpdateInfo(Number(id), adress, phone, email ,password);
+    await receptionistService.receptionistUpdateInfo(receptionistId, adress, phone, email ,password);
     return res.sendStatus(httpStatus.NO_CONTENT);
   } catch (error) {
     next(error);

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
 import clientService from '../services/clients-service';
-import { AuthenticatedRequest } from '@/middlewares';
+import { AuthenticatedClientRequest } from '@/middlewares';
 
 export async function clientsPost(req: Request, res: Response, next: NextFunction) {
   const { cpf, name, email, adress, phone, password } = req.body;
@@ -10,7 +10,7 @@ export async function clientsPost(req: Request, res: Response, next: NextFunctio
     const client = await clientService.createClient({ cpf, name, password, email, adress, phone });
     return res.status(httpStatus.CREATED).json({
       id: client.id,
-      cpf: client.email,
+      cpf: client.cpf,
       password: client.password,
     });
   } catch (error) {
@@ -18,7 +18,7 @@ export async function clientsPost(req: Request, res: Response, next: NextFunctio
   }
 }
 
-export async function clientUpdateInfo(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+export async function clientUpdateInfo(req: AuthenticatedClientRequest, res: Response, next: NextFunction) {
   const { clientId } = req;
   const { adress, phone, email ,password } = req.body;
 
