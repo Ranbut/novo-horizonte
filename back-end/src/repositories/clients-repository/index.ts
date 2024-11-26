@@ -1,20 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { prisma } from '../../config';
 
-async function findByEmail(email: string, select?: Prisma.ClientSelect) {
-  const params: Prisma.ClientFindUniqueArgs = {
-    where: {
-      email,
-    }
-  };
-
-  if (select) {
-    params.select = select;
-  }
-
-  return prisma.client.findUnique(params);
-}
-
 async function findByCPF(cpf: string) {
   return prisma.client.findUnique({
     where: {
@@ -44,7 +30,6 @@ async function updateInfo(id: number, adress: string, phone: string, email: stri
 }
 
 const clientRepository = {
-  findByEmail,
   findByCPF,
   create,
   updateInfo

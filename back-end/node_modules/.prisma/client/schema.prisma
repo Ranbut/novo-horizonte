@@ -22,6 +22,9 @@ model Client {
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   Session   Session[]
+  Appointment Appointement[]
+  Pescription Prescription[]
+  Report Report[]
 }
 
 model Session {
@@ -44,4 +47,65 @@ model Receptionist {
   birthday  DateTime?    
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
+  SessionReceptionist   SessionReceptionist[]
+}
+
+model SessionReceptionist {
+  id        Int      @id @default(autoincrement())
+  receptionistId  Int?
+  Receptionist    Receptionist?    @relation(fields: [receptionistId], references: [id], onDelete: Cascade)
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Medic {
+  id        Int         @id @default(autoincrement())
+  cpf       String      @unique @db.VarChar(255)
+  name      String      @db.VarChar(255)
+  email     String?     @unique @db.VarChar(255)
+  password  String      @db.VarChar(255)
+  adress    String?     @db.VarChar(255)
+  phone     String?     @db.VarChar(25)
+  birthday  DateTime?    
+  specialty String?     @db.VarChar(255)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  SessionMedic   SessionMedic[]
+  Appointment Appointement[]
+  Pescription Prescription[]
+  Report Report[]
+}
+
+model Appointement {
+  id  Int         @id @default(autoincrement())
+  clientId  Int?
+  Client    Client?    @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  medicId  Int?
+  Medic    Medic?    @relation(fields: [medicId], references: [id], onDelete: Cascade)
+}
+
+model Prescription {
+  id  Int         @id @default(autoincrement())
+  clientId  Int?
+  Client    Client?    @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  medicId  Int?
+  Medic    Medic?    @relation(fields: [medicId], references: [id], onDelete: Cascade)
+}
+
+model Report {
+  id  Int         @id @default(autoincrement())
+  clientId  Int?
+  Client    Client?    @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  medicId  Int?
+  Medic    Medic?    @relation(fields: [medicId], references: [id], onDelete: Cascade)
+}
+
+model SessionMedic {
+  id        Int      @id @default(autoincrement())
+  medicId  Int?
+  Medic    Medic?    @relation(fields: [medicId], references: [id], onDelete: Cascade)
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

@@ -2,21 +2,21 @@ import { Prisma } from '@prisma/client';
 import { prisma } from '../../config';
 
 async function findByCPF(cpf: string) {
-  return prisma.receptionist.findUnique({
+  return prisma.medic.findUnique({
     where: {
       cpf,
     },
   });
 }
 
-async function create(data: Prisma.ReceptionistUncheckedCreateInput) {
-  return prisma.receptionist.create({
+async function create(data: Prisma.MedicUncheckedCreateInput) {
+  return prisma.medic.create({
     data,
   });
 }
 
 async function updateInfo(id: number, adress: string, phone: string, email: string, password: string) {
-  return prisma.receptionist.update({
+  return prisma.medic.update({
     where: {
       id
     },
@@ -29,10 +29,10 @@ async function updateInfo(id: number, adress: string, phone: string, email: stri
   });
 }
 
-const receptionistRepository = {
+const medicsRepository = {
   findByCPF,
   create,
   updateInfo
 };
 
-export default receptionistRepository;
+export default medicsRepository;
