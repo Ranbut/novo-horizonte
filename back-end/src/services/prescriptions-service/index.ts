@@ -11,6 +11,10 @@ export async function getPrescription(medicId: number, prescriptionId: number) {
 }
 
 export async function getAllPrescriptionByUser(medicId: number, userId: number) {
+  const client = await clientRepository.findByID(userId);
+
+  if (!client) throw notFoundError();
+
   const prescriptions = await prescriptionsRepository.getAllPrescriptionByUser(medicId, userId);
 
   if (!prescriptions) throw notFoundError();
@@ -18,10 +22,13 @@ export async function getAllPrescriptionByUser(medicId: number, userId: number) 
   return prescriptions;
 }
 
-export async function createPrescription({ medicId, clientId, medications, description, expirationDate }: CreatePrescriptionParams): Promise<Prescription> {
+export async function createPrescription({ medicId, clientId, medications, description }: CreatePrescriptionParams): Promise<Prescription> {
   const client = await clientRepository.findByID(clientId);
 
   if (!client) throw notFoundError();
+
+  var today = new Date();
+  const expirationDate = new Date(new Date().setDate(today.getDate() + 30)).toISOString();
 
   return prescriptionsRepository.create({
     medicId,
@@ -45,6 +52,18 @@ export async function requestRenewPrescription(clientId: number, prescriptionId:
   return prescriptionsRepository.requestRenewPrescription(prescriptionId);
 }
 
+export async function acceptRenewPrescription(medicId: number, prescriptionId: number) {
+  const prescription = await prescriptionsRepository.findByMedicPrescriptionId(medicId,prescriptionId);
+
+  if (!prescription || prescription.requestingRenewal == false) throw notFoundError();
+
+  var today = new Date();
+  const renewDate = new Date(new Date().setDate(today.getDate() + 30)).toISOString();
+
+  return prescriptionsRepository.acceptRenewPrescription(prescriptionId, renewDate);
+}
+
+
 async function deletePrescription(medicId: number, prescriptionId: number) {
   await getPrescription(medicId, prescriptionId);
 
@@ -60,12 +79,13 @@ async function deleteAllPrescriptionByUser(medicId: number, clientId: number) {
   await prescriptionsRepository.deleteAllPrescriptionByUser(medicId, clientId);
 }
 
-export type CreatePrescriptionParams = Pick<Prescription, 'medicId' | 'clientId' |'medications' | 'description' | 'expirationDate'>;
+export type CreatePrescriptionParams = Pick<Prescription, 'medicId' | 'clientId' |'medications' | 'description'>;
 
 const prescriptionsService = {
     getPrescription,
     getAllPrescriptionByUser,
     requestRenewPrescription,
+    acceptRenewPrescription,
     createPrescription,
     deletePrescription,
     deleteAllPrescriptionByUser
