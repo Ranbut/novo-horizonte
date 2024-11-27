@@ -4,7 +4,8 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 
 import { loadEnv, connectDb, disconnectDB } from './config';
-import { authenticationRouter, clientsRouter, receptionistRouter, medicsRouter, prescriptionsRouter, reportsRouter, appointementsRouter } from './routers';
+import { authenticationRouter, clientsRouter, receptionistRouter, medicsRouter, prescriptionsRouter,
+   reportsRouter, appointementsRouter, examsRouter } from './routers';
 import { handleApplicationErrors } from './middlewares';
 
 loadEnv();
@@ -20,6 +21,7 @@ app
   .use('/prescriptions', prescriptionsRouter)
   .use('/reports', reportsRouter)
   .use('/appointements', appointementsRouter)
+  .use('/exams', examsRouter)
   .use('/auth', authenticationRouter)
   .use(handleApplicationErrors);
 

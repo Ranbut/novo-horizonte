@@ -3,5 +3,6 @@ export * from './receptionist-router';
 export * from './medics-router';
 export * from './prescriptions-router';
 export * from './reports-router';
+export * from './exams-router';
 export * from './appointements-router';
 export * from './authentication-router';

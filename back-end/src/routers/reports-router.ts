@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { reportSchema } from '../schemas';
-import { authenticateClientToken, authenticateMedicToken, validateBody } from '../middlewares';
+import { authenticateMedicToken, validateBody } from '../middlewares';
 import { createReport, deleteAllReportsByClient, deleteReport, editReport, getAllReportsByClient, getReport } from '../controllers';
 
 const reportsRouter = Router();

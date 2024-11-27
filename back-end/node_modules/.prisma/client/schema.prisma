@@ -25,6 +25,7 @@ model Client {
   Appointment Appointement[]
   Pescription Prescription[]
   Report      Report[]
+  Exam        Exam[]
 }
 
 model Session {
@@ -75,17 +76,18 @@ model Medic {
   Appointment  Appointement[]
   Pescription  Prescription[]
   Report       Report[]
+  Exam         Exam[]
 }
 
 model Appointement {
-  id       Int     @id @default(autoincrement())
-  clientId Int?
-  Client   Client? @relation(fields: [clientId], references: [id], onDelete: Cascade)
-  medicId  Int?
-  Medic    Medic?  @relation(fields: [medicId], references: [id], onDelete: Cascade)
-  appointementDate  DateTime
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  id               Int      @id @default(autoincrement())
+  clientId         Int?
+  Client           Client?  @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  medicId          Int?
+  Medic            Medic?   @relation(fields: [medicId], references: [id], onDelete: Cascade)
+  appointementDate DateTime
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
 
 model Prescription {
@@ -103,6 +105,18 @@ model Prescription {
 }
 
 model Report {
+  id        Int      @id @default(autoincrement())
+  clientId  Int?
+  Client    Client?  @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  medicId   Int?
+  Medic     Medic?   @relation(fields: [medicId], references: [id], onDelete: Cascade)
+  title     String   @db.VarChar(255)
+  text      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Exam {
   id        Int      @id @default(autoincrement())
   clientId  Int?
   Client    Client?  @relation(fields: [clientId], references: [id], onDelete: Cascade)
