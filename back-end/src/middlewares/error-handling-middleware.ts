@@ -14,6 +14,12 @@ export function handleApplicationErrors(
     });
   }
 
+  if (err.name === 'invalidDataError') {
+    return res.status(httpStatus.UNPROCESSABLE_ENTITY).send({
+      message: err.message,
+    });
+  }
+
   if (err.name === 'UnauthorizedError') {
     return res.status(httpStatus.UNAUTHORIZED).send({
       message: err.message,
@@ -28,12 +34,6 @@ export function handleApplicationErrors(
   
   if (err.name === 'InvalidCredentialsError') {
     return res.status(httpStatus.UNAUTHORIZED).send({
-      message: err.message,
-    });
-  }
-
-  if (err.name === 'CannotBookmarkError') {
-    return res.status(httpStatus.CONFLICT).send({
       message: err.message,
     });
   }

@@ -1,11 +1,11 @@
 import { Appointement } from '@prisma/client';
 import appointementsRepository from '../../repositories/appointements-repository';
 import clientRepository from '@/repositories/clients-repository';
-import { appointementNotFoundError, clientNotFoundError, medicNotFoundError } from '@/errors';
+import { appointementNotFoundError, clientNotFoundError, invalidAppointementDateError, medicNotFoundError } from '@/errors';
 import medicsRepository from '@/repositories/medics-repository';
 
 export async function getAllAppointementByClient(clientId: number) {
-    const client = await clientRepository.findByID(clientId)
+    const client = await clientRepository.findByID(clientId);
   
     if (!client) throw clientNotFoundError();
 
@@ -17,9 +17,16 @@ export async function createAppointement({ clientId, medicId, appointementDate }
   
     if (!medic) throw medicNotFoundError();
   
-    const client = await clientRepository.findByID(clientId)
+    const client = await clientRepository.findByID(clientId);
     
     if (!client) throw clientNotFoundError();
+
+    const compareAppointementDate = new Date(appointementDate);
+    const now = new Date();
+
+    if (compareAppointementDate < now) { 
+      throw invalidAppointementDateError();
+    }
 
   return appointementsRepository.createAppointement({
     clientId,
@@ -29,7 +36,7 @@ export async function createAppointement({ clientId, medicId, appointementDate }
 }
 
 export async function updateAppointement(appointementId: number, appointementDate: string) {
-  const appointement = await appointementsRepository.findAppointementByID(appointementId)
+  const appointement = await appointementsRepository.findAppointementByID(appointementId);
   
   if (!appointement) throw appointementNotFoundError();
 
@@ -37,7 +44,7 @@ export async function updateAppointement(appointementId: number, appointementDat
 }
 
 export async function deleteAppointement(appointementId: number) {
-  const appointement = await appointementsRepository.findAppointementByID(appointementId)
+  const appointement = await appointementsRepository.findAppointementByID(appointementId);
   
   if (!appointement) throw appointementNotFoundError();
 
@@ -45,7 +52,7 @@ export async function deleteAppointement(appointementId: number) {
 }
 
 export async function deleteAllAppointementsByClient(clientId: number) {
-  const client = await clientRepository.findByID(clientId)
+  const client = await clientRepository.findByID(clientId);
   
   if (!client) throw clientNotFoundError();
 
