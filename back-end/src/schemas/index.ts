@@ -3,4 +3,5 @@ export * from './medics-schemas';
 export * from './appointements-schemas';
 export * from './prescriptions-schemas';
 export * from './reports-schemas';
+export * from './exams-schemas';
 export * from './authentication-schemas';

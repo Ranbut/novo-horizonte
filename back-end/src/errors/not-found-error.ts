@@ -48,3 +48,10 @@ export function appointementNotFoundError(): ApplicationError {
     message: 'No result for the appointement selected!',
   };
 }
+
+export function examNotFoundError(): ApplicationError {
+  return {
+    name: 'NotFoundError',
+    message: 'No result for the exam selected!',
+  };
+}
