@@ -53,3 +53,14 @@ export async function createAppointement(req: AuthenticatedReceptionistRequest, 
       next(error);
     }
   }
+
+  export async function deleteAllAppointementsByClient(req: AuthenticatedReceptionistRequest, res: Response, next: NextFunction) {
+    const { id } = req.params;
+    
+    try {
+      await appointementService.deleteAllAppointementsByClient(Number(id));
+      return res.sendStatus(httpStatus.OK);
+    } catch (error) {
+      next(error);
+    }
+  }

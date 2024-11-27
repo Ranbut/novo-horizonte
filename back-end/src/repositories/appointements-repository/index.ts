@@ -43,12 +43,21 @@ async function findAppointementByID(id: number) {
     });
   }
 
+  async function deleteAllAppointementsByClient(clientId: number) {
+    return prisma.appointement.deleteMany({
+      where: {
+        clientId
+      }
+    });
+  }
+
 const appointementRepository = {
     findAppointementByID,
     findAllAppointementByClientID,
     createAppointement,
     updateAppointement,
-    deleteAppointement
+    deleteAppointement,
+    deleteAllAppointementsByClient
   };
   
 export default appointementRepository;

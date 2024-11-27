@@ -44,13 +44,22 @@ export async function deleteAppointement(appointementId: number) {
   return appointementsRepository.deleteAppointement(appointementId);
 }
 
+export async function deleteAllAppointementsByClient(clientId: number) {
+  const client = await clientRepository.findByID(clientId)
+  
+  if (!client) throw clientNotFoundError();
+
+  return appointementsRepository.deleteAllAppointementsByClient(clientId);
+}
+
 export type CreateAppointementParams = Pick<Appointement, 'clientId' | 'medicId' | 'appointementDate'>;
 
 const appointementService = {
   getAllAppointementByClient,
   createAppointement,
   updateAppointement,
-  deleteAppointement
+  deleteAppointement,
+  deleteAllAppointementsByClient
 };
 
 export default appointementService;
