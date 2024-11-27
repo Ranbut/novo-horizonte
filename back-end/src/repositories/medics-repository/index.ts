@@ -9,6 +9,14 @@ async function findByCPF(cpf: string) {
   });
 }
 
+async function findByID(id: number) {
+  return prisma.medic.findUnique({
+    where: {
+      id,
+    },
+  });
+}
+
 async function create(data: Prisma.MedicUncheckedCreateInput) {
   return prisma.medic.create({
     data,
@@ -24,13 +32,15 @@ async function updateInfo(id: number, adress: string, phone: string, email: stri
       adress,
       phone,
       email,
-      password
+      password,
+      updatedAt: new Date()
     },
   });
 }
 
 const medicsRepository = {
   findByCPF,
+  findByID,
   create,
   updateInfo
 };

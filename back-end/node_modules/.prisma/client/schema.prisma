@@ -83,6 +83,9 @@ model Appointement {
   Client   Client? @relation(fields: [clientId], references: [id], onDelete: Cascade)
   medicId  Int?
   Medic    Medic?  @relation(fields: [medicId], references: [id], onDelete: Cascade)
+  appointementDate  DateTime
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
 model Prescription {
