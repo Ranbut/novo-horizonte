@@ -16,35 +16,49 @@ export default function InfoForm(){
 
     const token = useToken();
 
-    function checkPasswordLenght(){
-        return password.length >= 7;
-    }
+    function checkPassword(){
+        if (password.length === 0) {
+            return true;
+        }
+        else if(password.length >= 7){
+            if (password === passwordConfirm) {
+                return true;
+            }
+            else{
+                alert('As senhas não coincidem!');
+                return false;
+            }
+        }
+        else{
+            alert('A senha deve ser no minimo 7 characteres.');
+            return false;
+        }
 
-    function checkIfPasswordsIsEqual(){
-        return password === passwordConfirm;
     }
 
     async function handleSubmit(e) {
-        if (checkIfPasswordsIsEqual()){
-            if (checkPasswordLenght()) {
+        if (checkPassword()){
                 e.preventDefault();
                 setLoading(true);
                 try {
-                  await updateInfo(adress, phone, email, password, token);
+                
+                  let body = {
+                    adress,
+                    phone,
+                    email
+                  }
+
+                  if (password) body.password = password;
+
+                  await updateInfo(body, token);
                   alert('Informações atualizadas!');
+                  setLoading(false);
                 } catch (error) {
                   setLoading(false);
                   alert('Falha em atualizar as informações!');
                 }
             }
-            else{
-                alert('A senha deve ser no minimo 7 characteres.');
-            }
-        }
-        else{
-            alert('As senhas não coincidem!');
-        }
-      };
+        };
 
     return(
         <Body>

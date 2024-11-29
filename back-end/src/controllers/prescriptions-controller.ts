@@ -49,12 +49,12 @@ export async function createPrescription(req: AuthenticatedMedicRequest, res: Re
 export async function requestRenewPrescription(req: AuthenticatedClientRequest, res: Response, next: NextFunction) {
   const { clientId } = req;
   const { id } = req.params;
-
   try {
       await prescriptionService.requestRenewPrescription(clientId, Number(id));
 
       return res.sendStatus(httpStatus.OK);
   } catch (error) {
+      console.log(error);
       next(error);
   }
 }

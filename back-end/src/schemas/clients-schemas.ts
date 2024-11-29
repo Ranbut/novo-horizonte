@@ -7,11 +7,12 @@ export const createUserSchema = Joi.object({
   adress: Joi.string(),
   phone: Joi.string(),
   email: Joi.string().email(),
+  birthday: Joi.date().required()
 });
 
 export const updateInfoSchema = Joi.object({
-  adress: Joi.string().required(),
-  phone: Joi.string().required(),
-  email: Joi.string().email().required(),
-  password: Joi.string().min(6).required()
+  adress: Joi.string().allow(null, ''),
+  phone: Joi.string().allow(null, ''),
+  email: Joi.string().email().allow(null, ''),
+  password: Joi.string().min(6)
 });

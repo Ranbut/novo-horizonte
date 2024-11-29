@@ -15,10 +15,14 @@ export async function createReceptionist({ cpf, name, password }: CreateReceptio
   });
 }
 
-export async function receptionistUpdateInfo(receptionistId: number,adress: string, phone: string, email: string, password: string) {
-  const hashedPassword = await bcrypt.hash(password, 12);
+export async function receptionistUpdateInfo(receptionistId: number, body: any) {
+  if (body.password) {
+    const hashedPassword = await bcrypt.hash(body.password, 12);
 
-  await receptionistRepository.updateInfo(receptionistId, adress, phone, email, hashedPassword);
+    body.password = hashedPassword
+  }
+
+  await receptionistRepository.updateInfo(receptionistId, body);
 }
 
 async function validateUniqueCPFOrFail(cpf: string) {
