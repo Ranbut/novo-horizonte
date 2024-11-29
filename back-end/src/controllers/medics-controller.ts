@@ -20,10 +20,10 @@ export async function medicsPost(req: Request, res: Response, next: NextFunction
 
 export async function medicUpdateInfo(req: AuthenticatedMedicRequest, res: Response, next: NextFunction) {
   const { medicId } = req;
-  const { adress, phone, email, password } = req.body;
+  const { body } = req;
 
   try {
-    await medicsService.medicUpdateInfo(medicId, adress, phone, email, password);
+    await medicsService.medicUpdateInfo(medicId, body);
     return res.sendStatus(httpStatus.NO_CONTENT);
   } catch (error) {
     next(error);

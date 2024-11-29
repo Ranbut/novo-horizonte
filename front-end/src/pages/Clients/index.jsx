@@ -3,12 +3,27 @@ import styled from "styled-components"
 import userImage from "../../assets/user-profile-female.png"
 import InfoForm from "../../components/InfoForm";
 import UserContext from "../../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
+import MyAppointments from "../../components/clients/MyAppointments";
+import MyPrescriptions from "../../components/clients/MyPrescriptions";
+import MyReports from "../../components/clients/MyReports";
+import MyExams from "../../components/clients/MyExams";
+import MyMedics from "../../components/clients/MyMedics";
+import Payment from "../../components/clients/Payment";
 
 export default function Client() {
     const [name, setName] = useState("Default Name");
     const [selectedOption, setSelectedOption] = useState("InfoForm");
 
     const { userData } = useContext(UserContext);
+
+    const navigate = useNavigate();
+
+    function handleLogout() {
+        localStorage.removeItem('userData');
+        alert('Saido da sessão!');
+        navigate("/sign-in");
+      };
 
     useEffect(() => {
         const userName = userData.client.name.split(' ');
@@ -20,7 +35,7 @@ export default function Client() {
             <Header>
                 <UserImage src={userImage} alt="userImage"/>
                 <UserGreetings>Olá, {name}</UserGreetings> 
-                <LogoutButton>Sair e Deslogar</LogoutButton>
+                <LogoutButton onClick={handleLogout}>Sair e Deslogar</LogoutButton>
             </Header>
             <MainBody>
                 <OptionsBody>
@@ -28,17 +43,30 @@ export default function Client() {
                         <Option onClick={() => setSelectedOption("MyMedics")}>Meus Médicos</Option>
                         <Option onClick={() => setSelectedOption("MyAppointments")}>Minhas Consultas</Option>
                         <Option onClick={() => setSelectedOption("InfoForm")}>Dados Pessoais</Option>
-                        <Option>Exames</Option>
-                        <Option>Rélatorios</Option>
-                        <Option>Solicitar Receitas</Option>
-                        <Option>Área de Pagamento</Option> 
+                        <Option onClick={() => setSelectedOption("MyExams")}>Exames</Option>
+                        <Option onClick={() => setSelectedOption("MyReports")}>Relatórios</Option>
+                        <Option onClick={() => setSelectedOption("MyPrescriptions")}>Receitas</Option>
+                        <Option onClick={() => setSelectedOption("Payment")}>Área de Pagamento</Option> 
                     </OptionsSelection>
                 </OptionsBody>
                 <MainSelected>
                     <Title>
-                        {selectedOption === "InfoForm" ? "Dados Pessoais" : "Title" }
+                        {selectedOption === "MyMedics" ? "Meus Médicos" :
+                        selectedOption === "MyAppointments" ? "Minhas Consultas" :
+                        selectedOption === "InfoForm" ? "Dados Pessoais" :
+                        selectedOption === "MyExams" ? "Exames" :
+                        selectedOption === "MyReports" ? "Relatório" :
+                        selectedOption === "MyPrescriptions" ? "Receitas" :
+                        selectedOption === "Payment" ? "Área de Pagamento" : "Title"}
                     </Title>
-                    {selectedOption === "InfoForm" ? <InfoForm/> : <></>}
+
+                        {selectedOption === "MyMedics" ? <MyMedics/> :
+                        selectedOption === "MyAppointments" ? <MyAppointments/> :
+                        selectedOption === "InfoForm" ?  <InfoForm/> :
+                        selectedOption === "MyExams" ? <MyExams/> :
+                        selectedOption === "MyReports" ? <MyReports/> :
+                        selectedOption === "MyPrescriptions" ? <MyPrescriptions/> :
+                        selectedOption === "Payment" ? <Payment/> : "Title"}
                 </MainSelected>
             </MainBody>
         </>

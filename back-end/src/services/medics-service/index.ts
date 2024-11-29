@@ -19,10 +19,14 @@ export async function createMedic({ name, cpf, password, adress, phone, email, s
   });
 }
 
-export async function medicUpdateInfo(medicId: number, adress: string, phone: string, email: string, password: string,) {
-  const hashedPassword = await bcrypt.hash(password, 12);
+export async function medicUpdateInfo(medicId: number, body: any) {
+  if (body.password) {
+    const hashedPassword = await bcrypt.hash(body.password, 12);
 
-  await medicsRepository.updateInfo(medicId, adress, phone, email, hashedPassword);
+    body.password = hashedPassword
+  }
+
+  await medicsRepository.updateInfo(medicId, body);
 }
 
 async function validateUniqueCPFOrFail(cpf: string) {

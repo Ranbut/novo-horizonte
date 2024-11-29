@@ -20,10 +20,10 @@ export async function receptionistPost(req: Request, res: Response, next: NextFu
 
 export async function receptionistUpdateInfo(req: AuthenticatedReceptionistRequest, res: Response, next: NextFunction) {
   const { receptionistId } = req;
-  const { adress, phone, email ,password } = req.body;
+  const { body } = req;
 
   try {
-    await receptionistService.receptionistUpdateInfo(receptionistId, adress, phone, email ,password);
+    await receptionistService.receptionistUpdateInfo(receptionistId, body);
     return res.sendStatus(httpStatus.NO_CONTENT);
   } catch (error) {
     next(error);

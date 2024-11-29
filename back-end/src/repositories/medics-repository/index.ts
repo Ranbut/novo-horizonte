@@ -23,18 +23,12 @@ async function create(data: Prisma.MedicUncheckedCreateInput) {
   });
 }
 
-async function updateInfo(id: number, adress: string, phone: string, email: string, password: string) {
+async function updateInfo(id: number, body: any) {
   return prisma.medic.update({
     where: {
       id
     },
-    data: {
-      adress,
-      phone,
-      email,
-      password,
-      updatedAt: new Date()
-    },
+    data: body,
   });
 }
 

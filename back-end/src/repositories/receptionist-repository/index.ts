@@ -15,18 +15,12 @@ async function create(data: Prisma.ReceptionistUncheckedCreateInput) {
   });
 }
 
-async function updateInfo(id: number, adress: string, phone: string, email: string, password: string) {
+async function updateInfo(id: number, body: any) {
   return prisma.receptionist.update({
     where: {
       id
     },
-    data: {
-      adress,
-      phone,
-      email,
-      password,
-      updatedAt: new Date()
-    },
+    data: body
   });
 }
 

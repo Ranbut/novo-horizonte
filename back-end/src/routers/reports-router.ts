@@ -10,7 +10,7 @@ reportsRouter
     .get('/:id', getReport)
     .get('/client/:clientId', getAllReportsByClient)
     .post('/client/:id/', validateBody(reportSchema), createReport)
-    .put('/', validateBody(reportSchema), editReport)
+    .put('/:id', validateBody(reportSchema), editReport)
     .delete('/:id', deleteReport)
     .delete('/client/:clientId', deleteAllReportsByClient);
 
