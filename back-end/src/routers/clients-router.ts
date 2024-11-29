@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { createUserSchema, updateInfoSchema } from '../schemas';
 import { authenticateClientToken, authenticateReceptionistToken, validateBody } from '../middlewares';
-import { clientsPost, clientUpdateInfo, getClientAppointements, getClientMedics, getClientPrescriptions, getClientReports, getClientExams, getAllClients } from '../controllers';
+import { clientsPost, clientUpdateInfo, getClientAppointements, getClientMedics, getClientPrescriptions,
+    getClientReports, getClientExams, getAllClients } from '../controllers';
 
 const clientsRouter = Router();
 

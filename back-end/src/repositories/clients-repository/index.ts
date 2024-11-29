@@ -117,6 +117,24 @@ async function findAllExams(clientId: number) {
   });
 }
 
+async function findAllClientsByMedicId(medicId: number) {
+  return await prisma.appointement.findMany({
+    where: {
+      medicId
+    },
+    select: {
+      Client: {
+        select: { 
+          id: true,
+          name: true,
+          cpf: true
+        }
+      }
+    },
+    distinct: ['clientId'],
+  });
+}
+
 async function create(data: Prisma.ClientUncheckedCreateInput) {
   return prisma.client.create({
     data,
@@ -142,6 +160,7 @@ const clientRepository = {
   findAllPrescriptions,
   findAllAppointements,
   findAllExams,
+  findAllClientsByMedicId,
   updateInfo
 };
 

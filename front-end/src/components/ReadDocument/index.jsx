@@ -1,9 +1,6 @@
 import styled from "styled-components"
 
 export default function ReadDocument({ text }){
-
-    console.log(text);
-
     return(
         <Body>
             <TextBody>

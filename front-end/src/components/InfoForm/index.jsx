@@ -49,8 +49,7 @@ export default function InfoForm({ user }){
                 e.preventDefault();
                 setLoading(true);
                 try {
-                
-                    const birthdayObject = new Date(birthday);
+                const birthdayObject = new Date(birthday);
 
                   let body = {
                     adress,

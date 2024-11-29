@@ -2,6 +2,7 @@ import { Medic } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { duplicatedCPFError } from '../../errors/duplication-error';
 import medicsRepository from '../../repositories/medics-repository';
+import clientRepository from '@/repositories/clients-repository';
 
 export async function getAllMedics() {
   const medics = await medicsRepository.getAll()
@@ -36,6 +37,13 @@ export async function medicUpdateInfo(medicId: number, body: any) {
   await medicsRepository.updateInfo(medicId, body);
 }
 
+
+export async function getAllClientsByMedic(medicId: number) {
+  const clients = await clientRepository.findAllClientsByMedicId(medicId);
+
+  return clients;
+}
+
 async function validateUniqueCPFOrFail(cpf: string) {
   const medicWithSameCPF = await medicsRepository.findByCPF(cpf);
   if (medicWithSameCPF) {
@@ -48,6 +56,7 @@ export type CreateMedicParams = Pick<Medic, 'cpf' | 'name' | 'birthday' |'passwo
 const medicsService = {
     getAllMedics,
     createMedic,
+    getAllClientsByMedic,
     medicUpdateInfo
 };
 

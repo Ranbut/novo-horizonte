@@ -3,11 +3,11 @@ import styled from "styled-components"
 import userImage from "../../assets/user-profile-female.png"
 import InfoForm from "../../components/InfoForm";
 import UserContext from "../../contexts/UserContext";
-import RegisterForm from "../../components/receptionists/RegisterForm";
 import { useNavigate } from "react-router-dom";
-import RegisterAppointment from "../../components/receptionists/RegisterAppointment";
+import Pacients from "../../components/medics/Pacients";
+import Reports from "../../components/medics/Reports";
 
-export default function Receptionists() {
+export default function Medics() {
     const [name, setName] = useState("Default Name");
     const [selectedOption, setSelectedOption] = useState("InfoForm");
 
@@ -18,13 +18,13 @@ export default function Receptionists() {
     function handleLogout() {
         localStorage.removeItem('userData');
         alert('Saido da sessão!');
-        navigate("/receptionists/sign-in");
+        navigate("/medics/sign-in");
       };
 
     useEffect(() => {
-        const userName = userData.receptionist.name.split(' ');
+        const userName = userData.medic.name.split(' ');
         setName(userName[0] + " " + userName[1]);
-    }, [userData.receptionist.name]);
+    }, [userData.medic.name]);
 
     return(
         <>
@@ -36,20 +36,26 @@ export default function Receptionists() {
             <MainBody>
                 <OptionsBody>
                     <OptionsSelection>
-                        <Option onClick={() => setSelectedOption("RegisterClient")}>Registrar Paciente</Option>
-                        <Option onClick={() => setSelectedOption("RegisterAppointment")}>Marca Consulta</Option>
+                        <Option onClick={() => setSelectedOption("Pacients")}>Pacientes</Option>
+                        <Option onClick={() => setSelectedOption("Agenda")}>Agenda</Option>
                         <Option onClick={() => setSelectedOption("InfoForm")}>Dados Pessoais</Option>
+                        <Option onClick={() => setSelectedOption("Reports")}>Relátorios</Option>
+                        <Option onClick={() => setSelectedOption("Prescription")}>Receitas</Option>
+                        <Option onClick={() => setSelectedOption("Exam")}>Exames</Option>
                     </OptionsSelection>
                 </OptionsBody>
                 <MainSelected>
                     <Title>
-                        {selectedOption === "InfoForm" ? "Dados Pessoais" :
-                        selectedOption === "RegisterClient" ? "Registrar Paciente" :
-                        selectedOption === "RegisterAppointment" ? "Marcar Consulta" : "Title"}
+                        {selectedOption === "Pacients" ? "Pacientes" :
+                        selectedOption === "Agenda" ? "Agenda" :
+                        selectedOption === "InfoForm" ? "Dados Pessoais" :
+                        selectedOption === "Reports" ? "Relátorios" :
+                        selectedOption === "Prescription" ? "Receitas" :
+                        selectedOption === "Exam" ? "Exames" : "Title"}
                     </Title>
-                    {selectedOption === "InfoForm" ? <InfoForm user={userData.receptionist}/> :
-                        selectedOption === "RegisterClient" ? <RegisterForm/> :
-                        selectedOption === "RegisterAppointment" ? <RegisterAppointment/> : <></>}
+                    {selectedOption === "InfoForm" ? <InfoForm user={userData.medic}/> :
+                        selectedOption === "Pacients" ? <Pacients/> :
+                        selectedOption === "Reports" ? <Reports/> : <></>}
                 </MainSelected>
             </MainBody>
         </>

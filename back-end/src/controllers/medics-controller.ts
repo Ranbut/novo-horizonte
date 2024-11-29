@@ -28,6 +28,17 @@ export async function medicsPost(req: Request, res: Response, next: NextFunction
   }
 }
 
+export async function getAllClientsByMedic(req: AuthenticatedMedicRequest, res: Response, next: NextFunction) {
+  const { medicId } = req;
+
+  try {
+    const medics = await medicsService.getAllClientsByMedic(medicId);
+    return res.status(httpStatus.OK).send(medics);
+  } catch (error) {
+    next(error);
+  }
+}
+
 export async function medicUpdateInfo(req: AuthenticatedMedicRequest, res: Response, next: NextFunction) {
   const { medicId } = req;
   const { body } = req;
