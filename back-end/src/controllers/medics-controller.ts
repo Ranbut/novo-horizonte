@@ -1,13 +1,23 @@
 import { Request, Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
 import medicsService from '../services/medics-service';
-import { AuthenticatedMedicRequest } from '@/middlewares';
+import { AuthenticatedMedicRequest, AuthenticatedReceptionistRequest } from '@/middlewares';
 
-export async function medicsPost(req: Request, res: Response, next: NextFunction) {
-  const { name, cpf, password, adress, phone, email, specialty } = req.body;
+export async function getAllMedics(req: AuthenticatedReceptionistRequest, res: Response, next: NextFunction) {
 
   try {
-    const medic = await medicsService.createMedic({ name, cpf, password, adress, phone, email, specialty });
+    const medics = await medicsService.getAllMedics();
+    return res.status(httpStatus.OK).send(medics);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function medicsPost(req: Request, res: Response, next: NextFunction) {
+  const { name, cpf, birthday, password, adress, phone, email, specialty } = req.body;
+
+  try {
+    const medic = await medicsService.createMedic({ name, cpf, birthday, password, adress, phone, email, specialty });
     return res.status(httpStatus.CREATED).json({
       id: medic.id,
       cpf: medic.cpf,

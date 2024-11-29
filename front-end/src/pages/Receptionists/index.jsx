@@ -3,7 +3,9 @@ import styled from "styled-components"
 import userImage from "../../assets/user-profile-female.png"
 import InfoForm from "../../components/InfoForm";
 import UserContext from "../../contexts/UserContext";
-import RegisterForm from "../../components/RegisterForm";
+import RegisterForm from "../../components/receptionists/RegisterForm";
+import { useNavigate } from "react-router-dom";
+import RegisterAppointment from "../../components/receptionists/RegisterAppointment";
 
 export default function Receptionists() {
     const [name, setName] = useState("Default Name");
@@ -11,23 +13,31 @@ export default function Receptionists() {
 
     const { userData } = useContext(UserContext);
 
+    const navigate = useNavigate();
+
+    function handleLogout() {
+        localStorage.removeItem('userData');
+        alert('Saido da sessão!');
+        navigate("/");
+      };
+
     useEffect(() => {
-        const userName = userData.client.name.split(' ');
+        const userName = userData.receptionist.name.split(' ');
         setName(userName[0] + " " + userName[1]);
-    }, [userData.client.name]);
+    }, [userData.receptionist.name]);
 
     return(
         <>
             <Header>
                 <UserImage src={userImage} alt="userImage"/>
                 <UserGreetings>Olá, {name}</UserGreetings> 
-                <LogoutButton>Sair e Deslogar</LogoutButton>
+                <LogoutButton onClick={handleLogout}>Sair e Deslogar</LogoutButton>
             </Header>
             <MainBody>
                 <OptionsBody>
                     <OptionsSelection>
                         <Option onClick={() => setSelectedOption("RegisterClient")}>Registrar Paciente</Option>
-                        <Option onClick={() => setSelectedOption("MakeAppointment")}>Marca Consulta</Option>
+                        <Option onClick={() => setSelectedOption("RegisterAppointment")}>Marca Consulta</Option>
                         <Option onClick={() => setSelectedOption("InfoForm")}>Dados Pessoais</Option>
                     </OptionsSelection>
                 </OptionsBody>
@@ -35,11 +45,11 @@ export default function Receptionists() {
                     <Title>
                         {selectedOption === "InfoForm" ? "Dados Pessoais" :
                         selectedOption === "RegisterClient" ? "Registrar Paciente" :
-                        selectedOption === "MakeAppointment" ? "Marcar Consulta" : "Title"}
+                        selectedOption === "RegisterAppointment" ? "Marcar Consulta" : "Title"}
                     </Title>
-                    {selectedOption === "InfoForm" ? <InfoForm/> :
+                    {selectedOption === "InfoForm" ? <InfoForm user={userData.receptionist}/> :
                         selectedOption === "RegisterClient" ? <RegisterForm/> :
-                        selectedOption === "MakeAppointment" ? <></> : <></>}
+                        selectedOption === "RegisterAppointment" ? <RegisterAppointment/> : <></>}
                 </MainSelected>
             </MainBody>
         </>

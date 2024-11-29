@@ -17,6 +17,19 @@ async function findByID(id: number) {
   });
 }
 
+async function getAll() {
+  return prisma.medic.findMany({
+    select: {
+      id: true,
+      name: true,
+      specialty: true
+    },
+    orderBy:{
+      name: 'asc'
+    }
+  });
+}
+
 async function create(data: Prisma.MedicUncheckedCreateInput) {
   return prisma.medic.create({
     data,
@@ -35,6 +48,7 @@ async function updateInfo(id: number, body: any) {
 const medicsRepository = {
   findByCPF,
   findByID,
+  getAll,
   create,
   updateInfo
 };

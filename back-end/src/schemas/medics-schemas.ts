@@ -8,4 +8,5 @@ export const createMedicSchema = Joi.object({
   adress: Joi.string(),
   phone: Joi.string(),
   email: Joi.string().email(),
+  birthday: Joi.date().required()
 });

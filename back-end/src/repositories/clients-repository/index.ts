@@ -17,6 +17,19 @@ async function findByID(id: number) {
   });
 }
 
+async function getAll() {
+  return prisma.client.findMany({
+    select: {
+      id: true,
+      name: true,
+      cpf: true
+    },
+    orderBy:{
+      name: 'asc'
+    }
+  });
+}
+
 async function findAllMedicsByAppointement(clientId: number) {
   return await prisma.appointement.findMany({
     where: {
@@ -122,6 +135,7 @@ async function updateInfo(id: number, body: any) {
 const clientRepository = {
   findByCPF,
   findByID,
+  getAll,
   create,
   findAllMedicsByAppointement,
   findAllReports,

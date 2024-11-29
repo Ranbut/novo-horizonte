@@ -22,7 +22,7 @@ export default function Client() {
     function handleLogout() {
         localStorage.removeItem('userData');
         alert('Saido da sessão!');
-        navigate("/sign-in");
+        navigate("/");
       };
 
     useEffect(() => {
@@ -62,7 +62,7 @@ export default function Client() {
 
                         {selectedOption === "MyMedics" ? <MyMedics/> :
                         selectedOption === "MyAppointments" ? <MyAppointments/> :
-                        selectedOption === "InfoForm" ?  <InfoForm/> :
+                        selectedOption === "InfoForm" ?  <InfoForm user={userData.client}/> :
                         selectedOption === "MyExams" ? <MyExams/> :
                         selectedOption === "MyReports" ? <MyReports/> :
                         selectedOption === "MyPrescriptions" ? <MyPrescriptions/> :

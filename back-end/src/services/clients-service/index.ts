@@ -3,7 +3,14 @@ import bcrypt from 'bcrypt';
 import { duplicatedCPFError } from '../../errors/duplication-error';
 import clientRepository from '../../repositories/clients-repository';
 
-export async function createClient({ cpf, name, password, email, adress, phone }: CreateClientParams): Promise<Client> {
+
+export async function getAllClients() {
+  const clients = await clientRepository.getAll()
+
+  return clients;
+}
+
+export async function createClient({ cpf, name, birthday, password, email, adress, phone }: CreateClientParams): Promise<Client> {
   await validateUniqueCPFOrFail(cpf);
 
   const hashedPassword = await bcrypt.hash(password, 12);
@@ -11,6 +18,7 @@ export async function createClient({ cpf, name, password, email, adress, phone }
   return clientRepository.create({
     cpf,
     name,
+    birthday,
     email,
     adress,
     phone,
@@ -67,9 +75,10 @@ async function validateUniqueCPFOrFail(cpf: string) {
   }
 }
 
-export type CreateClientParams = Pick<Client, 'cpf' | 'name' |'password' | 'email' | 'adress' | 'phone'>;
+export type CreateClientParams = Pick<Client, 'cpf' | 'name' | 'birthday' |'password' | 'email' | 'adress' | 'phone'>;
 
 const clientService = {
+  getAllClients,
   createClient,
   getClientMedics,
   getClientReports,

@@ -3,7 +3,13 @@ import bcrypt from 'bcrypt';
 import { duplicatedCPFError } from '../../errors/duplication-error';
 import medicsRepository from '../../repositories/medics-repository';
 
-export async function createMedic({ name, cpf, password, adress, phone, email, specialty }: CreateMedicParams): Promise<Medic> {
+export async function getAllMedics() {
+  const medics = await medicsRepository.getAll()
+
+  return medics;
+}
+
+export async function createMedic({ name, cpf, birthday, password, adress, phone, email, specialty }: CreateMedicParams): Promise<Medic> {
   await validateUniqueCPFOrFail(cpf);
 
   const hashedPassword = await bcrypt.hash(password, 12);
@@ -11,6 +17,7 @@ export async function createMedic({ name, cpf, password, adress, phone, email, s
   return medicsRepository.create({
     cpf,
     name,
+    birthday,
     email,
     adress,
     phone,
@@ -36,9 +43,10 @@ async function validateUniqueCPFOrFail(cpf: string) {
   }
 }
 
-export type CreateMedicParams = Pick<Medic, 'cpf' | 'name' |'password' | 'email' | 'adress' | 'phone' | 'specialty'>;
+export type CreateMedicParams = Pick<Medic, 'cpf' | 'name' | 'birthday' |'password' | 'email' | 'adress' | 'phone' | 'specialty'>;
 
 const medicsService = {
+    getAllMedics,
     createMedic,
     medicUpdateInfo
 };

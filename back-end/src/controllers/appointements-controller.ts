@@ -20,7 +20,7 @@ export async function createAppointement(req: AuthenticatedReceptionistRequest, 
   
     const clientId = Number(clientIdNumber);
     const medicId = Number(medicIdNumber);
-  
+
     try {
       await appointementService.createAppointement({ clientId, medicId, appointementDate });
       return res.sendStatus(httpStatus.CREATED);

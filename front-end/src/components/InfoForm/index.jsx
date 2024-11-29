@@ -1,15 +1,23 @@
 import styled from "styled-components"
 import userImage from "../../assets/user-profile-female.png"
-import UserContext from "../../contexts/UserContext";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { updateInfo } from "../../services/clientApi";
 import useToken from "../../hooks/useToken";
 
-export default function InfoForm(){
-    const { userData } = useContext(UserContext);
-    const [adress, setAdress] = useState(userData.client.adress);
-    const [phone, setPhone] = useState(userData.client.phone);
-    const [email, setEmail] = useState(userData.client.email);
+export default function InfoForm({ user }){
+
+    const date = new Date(user.birthday);
+
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    
+    const formattedDate = `${day}/${month}/${year}`;
+
+    const [adress, setAdress] = useState(user.adress);
+    const [phone, setPhone] = useState(user.phone);
+    const [email, setEmail] = useState(user.email);
+    const [birthday, setBirthday] = useState(formattedDate);
     const [password, setPassword] = useState('');
     const [passwordConfirm, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -42,10 +50,13 @@ export default function InfoForm(){
                 setLoading(true);
                 try {
                 
+                    const birthdayObject = new Date(birthday);
+
                   let body = {
                     adress,
                     phone,
-                    email
+                    email,
+                    birthday: birthdayObject.toISOString()
                   }
 
                   if (password) body.password = password;
@@ -65,11 +76,11 @@ export default function InfoForm(){
             <InfoBody>
                 <InputBody>
                     <InputLabel>Nome completo:</InputLabel>
-                    <InputField disabled value={userData.client.name}/>
+                    <InputField disabled value={user.name}/>
                 </InputBody>
                 <InputBody>
                     <InputLabel>CPF:</InputLabel>
-                    <InputField disabled value={userData.client.cpf}/>
+                    <InputField disabled value={user.cpf}/>
                 </InputBody>
                 <InputBody>
                     <InputLabel>Endereço:</InputLabel>
@@ -84,7 +95,13 @@ export default function InfoForm(){
                 </InputBody>
                 <InputBody>
                     <InputLabel>Data de aniversário:</InputLabel>
-                    <InputField disabled/>
+                        <InputField 
+                            disabled
+                            id="birthday"
+                            name="birthday"
+                            value={birthday}
+                            type="date"
+                            onChange={(e) => setBirthday(e.target.value)}/>
                 </InputBody>
                 <InputBody>
                     <InputLabel>Telefone:</InputLabel>

@@ -21,17 +21,17 @@ export async function createAppointement({ clientId, medicId, appointementDate }
     
     if (!client) throw clientNotFoundError();
 
-    const compareAppointementDate = new Date(appointementDate);
+    const formatAppointementDate = new Date(appointementDate);
     const now = new Date();
 
-    if (compareAppointementDate < now) { 
+    if (formatAppointementDate < now) { 
       throw invalidAppointementDateError();
     }
 
   return appointementsRepository.createAppointement({
     clientId,
     medicId,
-    appointementDate
+    appointementDate: formatAppointementDate.toISOString()
   });
 }
 

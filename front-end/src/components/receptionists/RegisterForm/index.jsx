@@ -1,7 +1,7 @@
 import styled from "styled-components"
-import userImage from "../../assets/user-profile-female.png"
+import userImage from "../../../assets/user-profile-female.png"
 import { useState } from "react";
-import { createClient } from "../../services/receptionist";
+import { createClient } from "../../../services/receptionistApi";
 
 export default function RegisterForm(){
     const [name, setName] = useState('');
@@ -9,6 +9,7 @@ export default function RegisterForm(){
     const [adress, setAdress] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
+    const [birthday, setBirthday] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -42,7 +43,8 @@ export default function RegisterForm(){
                     e.preventDefault();
                     setLoading(true);
                     try {
-                      await createClient(name, cpf, password, adress, phone, email);
+                      const birthdayObject = new Date(birthday);
+                      await createClient(name, cpf, birthdayObject.toISOString(), password, adress, phone, email);
                       alert('Paciente registrado!');
                       resetFields();
                       setLoading(false);
@@ -101,7 +103,13 @@ export default function RegisterForm(){
                 </InputBody>
                 <InputBody>
                     <InputLabel>Data de aniversário:</InputLabel>
-                    <InputField disabled/>
+                    <InputField 
+                        disabled={loading}
+                        id="birthday"
+                        name="birthday"
+                        value={birthday}
+                        type="date"
+                        onChange={(e) => setBirthday(e.target.value)}/>
                 </InputBody>
                 <InputBody>
                     <InputLabel>Telefone:</InputLabel>

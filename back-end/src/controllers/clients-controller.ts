@@ -1,19 +1,30 @@
 import { Request, Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
 import clientService from '../services/clients-service';
-import { AuthenticatedClientRequest } from '@/middlewares';
+import { AuthenticatedClientRequest, AuthenticatedReceptionistRequest } from '@/middlewares';
+
+
+export async function getAllClients(req: AuthenticatedReceptionistRequest, res: Response, next: NextFunction) {
+  try {
+    const clients = await clientService.getAllClients();
+    return res.status(httpStatus.OK).send(clients);
+  } catch (error) {
+    next(error);
+  }
+}
 
 export async function clientsPost(req: Request, res: Response, next: NextFunction) {
-  const { cpf, name, email, adress, phone, password } = req.body;
+  const { cpf, name, birthday, email, adress, phone, password } = req.body;
 
   try {
-    const client = await clientService.createClient({ cpf, name, password, email, adress, phone });
+    const client = await clientService.createClient({ cpf, name, birthday, password, email, adress, phone });
     return res.status(httpStatus.CREATED).json({
       id: client.id,
       cpf: client.cpf,
       password: client.password,
     });
   } catch (error) {
+    console.log(error);
     next(error);
   }
 }

@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import clinic from '../../assets/photo-6.png'
-import { signInClients } from "../../services/authApi";
+import { signInReceptionists } from "../../services/authApi";
 import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import UserContext from "../../contexts/UserContext";
 
-export default function SignIn() {
+export default function SignInReceptionists() {
     const [cpf, setCpf] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -17,10 +17,10 @@ export default function SignIn() {
         e.preventDefault();
         setLoading(true);
         try {
-          const userData = await signInClients(cpf, password);
+          const userData = await signInReceptionists(cpf, password);
           setUserData(userData);
           alert('Login successful!');
-          navigate(`/clients`);
+          navigate(`/receptionists/app`);
         } catch (error) {
           setLoading(false);
           alert('Unable to login!');
