@@ -2,24 +2,26 @@ import styled from "styled-components"
 import { PiKeyReturnFill } from "react-icons/pi";
 import useToken from "../../../hooks/useToken";
 import { useEffect, useState } from "react";
+import ReadDocument from "../../ReadDocument";
 import PacientCard from "../Pacients/PacientCard";
-import { getAllMedicClients, getAllPrescriptionsByClient } from "../../../services/medicApi";
-import PrescriptionCard from "./PrescriptionCard";
+import { getAllMedicClients, getAllExamsByClient } from "../../../services/medicApi";
+import ExamCard from "./ExamCard";
 
-export default function Prescription(){
+export default function Exams(){
     const [clientSelected, setClientSelected] = useState(null);
     const [pacients, setPacients] = useState([]);
-    const [prescriptions, setPrescriptions] = useState([]);
+    const [examSelected, setExamSelected] = useState(null);
+    const [exams, setExams] = useState([]);
     const token = useToken()
 
     function selectClient(pacient) {
         setClientSelected(pacient);
-        fetchPrescriptionData(pacient);
+        fetchExamsData(pacient);
     }
 
-    async function fetchPrescriptionData(pacient) {
-        const prescription = await getAllPrescriptionsByClient(pacient.id, token);
-        setPrescriptions(prescription);
+    async function fetchExamsData(pacient) {
+        const exams = await getAllExamsByClient(pacient.id, token);
+        setExams(exams);
     }
 
     useEffect(() => {
@@ -40,7 +42,7 @@ export default function Prescription(){
         )
     }
 
-    function renderPrescriptions(){
+    function renderExams(){
         return(
             <>
                 <ReturnButton onClick={() => {setClientSelected(null);}}>
@@ -48,8 +50,8 @@ export default function Prescription(){
                     <PiKeyReturnFill size={20}/>
                 </ReturnButton>
                 <InfoBody>
-                    {prescriptions.map((prescription, index) => (
-                        <PrescriptionCard prescription={prescription} key={index} />
+                    {exams.map((exam, index) => (
+                        <ExamCard onClick={() => {setExamSelected(exam)}} exam={exam} key={index} />
                     ))}
                 </InfoBody>
             </>
@@ -58,7 +60,18 @@ export default function Prescription(){
 
     return(
         <Body>
-            {!clientSelected ? renderPacients() : renderPrescriptions() }
+            {!clientSelected ? renderPacients() : <></> }
+            {clientSelected && !examSelected ? renderExams() : <></>}
+            {examSelected ? 
+            <>
+                <ReturnButton onClick={() => {setExamSelected()}}>
+                        Retornar
+                    <PiKeyReturnFill size={20}/>
+                </ReturnButton>
+                <ReadDocument text={examSelected}/>
+            </> 
+            : <></>
+            }
         </Body>
     );
 }

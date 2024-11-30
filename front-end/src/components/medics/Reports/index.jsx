@@ -22,7 +22,6 @@ export default function Reports(){
     async function fetchReportData(pacient) {
         const reports = await getAllReportsByClient(pacient.id, token);
         setReports(reports);
-        console.log(reports);
     }
 
     useEffect(() => {
@@ -46,7 +45,7 @@ export default function Reports(){
     function renderReports(){
         return(
             <>
-                <ReturnButton onClick={() => {setClientSelected(null)}}>
+                <ReturnButton onClick={() => {setClientSelected(null);}}>
                         Retornar
                     <PiKeyReturnFill size={20}/>
                 </ReturnButton>

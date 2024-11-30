@@ -6,6 +6,8 @@ import UserContext from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import Pacients from "../../components/medics/Pacients";
 import Reports from "../../components/medics/Reports";
+import Prescription from "../../components/medics/Prescription";
+import Exams from "../../components/medics/Exams";
 
 export default function Medics() {
     const [name, setName] = useState("Default Name");
@@ -41,7 +43,7 @@ export default function Medics() {
                         <Option onClick={() => setSelectedOption("InfoForm")}>Dados Pessoais</Option>
                         <Option onClick={() => setSelectedOption("Reports")}>Relátorios</Option>
                         <Option onClick={() => setSelectedOption("Prescription")}>Receitas</Option>
-                        <Option onClick={() => setSelectedOption("Exam")}>Exames</Option>
+                        <Option onClick={() => setSelectedOption("Exams")}>Exames</Option>
                     </OptionsSelection>
                 </OptionsBody>
                 <MainSelected>
@@ -51,11 +53,15 @@ export default function Medics() {
                         selectedOption === "InfoForm" ? "Dados Pessoais" :
                         selectedOption === "Reports" ? "Relátorios" :
                         selectedOption === "Prescription" ? "Receitas" :
-                        selectedOption === "Exam" ? "Exames" : "Title"}
+                        selectedOption === "Exams" ? "Exames" : "Title"}
                     </Title>
-                    {selectedOption === "InfoForm" ? <InfoForm user={userData.medic}/> :
+                    {
                         selectedOption === "Pacients" ? <Pacients/> :
-                        selectedOption === "Reports" ? <Reports/> : <></>}
+                        selectedOption === "Agenda" ? <></> :
+                        selectedOption === "InfoForm" ? <InfoForm user={userData.medic}/> :
+                        selectedOption === "Reports" ? <Reports/> :
+                        selectedOption === "Prescription" ? <Prescription/> :
+                        selectedOption === "Exams" ? <Exams/> : <></>}
                 </MainSelected>
             </MainBody>
         </>
