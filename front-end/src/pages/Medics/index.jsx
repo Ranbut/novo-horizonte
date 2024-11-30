@@ -8,6 +8,7 @@ import Pacients from "../../components/medics/Pacients";
 import Reports from "../../components/medics/Reports";
 import Prescription from "../../components/medics/Prescription";
 import Exams from "../../components/medics/Exams";
+import Agenda from "../../components/medics/Agenda";
 
 export default function Medics() {
     const [name, setName] = useState("Default Name");
@@ -57,7 +58,7 @@ export default function Medics() {
                     </Title>
                     {
                         selectedOption === "Pacients" ? <Pacients/> :
-                        selectedOption === "Agenda" ? <></> :
+                        selectedOption === "Agenda" ? <Agenda/> :
                         selectedOption === "InfoForm" ? <InfoForm user={userData.medic}/> :
                         selectedOption === "Reports" ? <Reports/> :
                         selectedOption === "Prescription" ? <Prescription/> :

@@ -1,13 +1,24 @@
 import { Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
 import appointementService from '../services/appointements-service';
-import { AuthenticatedReceptionistRequest } from '@/middlewares';
+import { AuthenticatedMedicRequest, AuthenticatedReceptionistRequest } from '@/middlewares';
 
 export async function getAllAppointementByClient(req: AuthenticatedReceptionistRequest, res: Response, next: NextFunction) {
     const { id } = req.params;
   
     try {
       const appointements = await appointementService.getAllAppointementByClient(Number(id));
+      return res.status(httpStatus.OK).send(appointements);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  export async function getAllClientsAppointementByMedic(req: AuthenticatedMedicRequest, res: Response, next: NextFunction) {
+    const { medicId } = req;
+  
+    try {
+      const appointements = await appointementService.getAllClientsAppointementByMedic(medicId);
       return res.status(httpStatus.OK).send(appointements);
     } catch (error) {
       next(error);

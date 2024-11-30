@@ -6,12 +6,15 @@ import ReadDocument from "../../ReadDocument";
 import PacientCard from "../Pacients/PacientCard";
 import { getAllMedicClients, getAllExamsByClient } from "../../../services/medicApi";
 import ExamCard from "./ExamCard";
+import ExamForm from "./ExamForm";
+import { IoIosRefresh, IoMdAdd } from "react-icons/io";
 
 export default function Exams(){
     const [clientSelected, setClientSelected] = useState(null);
     const [pacients, setPacients] = useState([]);
     const [examSelected, setExamSelected] = useState(null);
     const [exams, setExams] = useState([]);
+    const [adding, setAdding] = useState(false);
     const token = useToken()
 
     function selectClient(pacient) {
@@ -45,10 +48,18 @@ export default function Exams(){
     function renderExams(){
         return(
             <>
-                <ReturnButton onClick={() => {setClientSelected(null);}}>
+                <AddButton onClick={() => {setAdding(true)}}>
+                        Novo
+                    <IoMdAdd size={20}/>
+                </AddButton>
+                <ReturnButton onClick={() => {setClientSelected(null)}}>
                         Retornar
                     <PiKeyReturnFill size={20}/>
                 </ReturnButton>
+                <RefreshButton onClick={() => {selectClient(clientSelected)}}>
+                        Atualizar
+                    <IoIosRefresh size={20}/>
+                </RefreshButton>
                 <InfoBody>
                     {exams.map((exam, index) => (
                         <ExamCard onClick={() => {setExamSelected(exam)}} exam={exam} key={index} />
@@ -60,8 +71,17 @@ export default function Exams(){
 
     return(
         <Body>
+            {adding ? 
+            <>
+                <ReturnButton onClick={() => {setAdding(false)}}>
+                        Retornar
+                    <PiKeyReturnFill size={20}/>
+                </ReturnButton>
+                <h2>Novo Exame</h2>
+                <ExamForm clientId={(clientSelected.id)}/>
+            </> : <></>}
             {!clientSelected ? renderPacients() : <></> }
-            {clientSelected && !examSelected ? renderExams() : <></>}
+            {clientSelected && !examSelected && !adding ? renderExams() : <></>}
             {examSelected ? 
             <>
                 <ReturnButton onClick={() => {setExamSelected()}}>
@@ -99,4 +119,18 @@ const ReturnButton = styled.button`
     cursor: pointer;
     font-size: 25px;
     margin-bottom: 20px;
+    margin-left: 10px;
+`;
+
+const AddButton = styled.button`
+    cursor: pointer;
+    font-size: 25px;
+    margin-bottom: 20px;
+`;
+
+const RefreshButton = styled.button`
+    cursor: pointer;
+    font-size: 25px;
+    margin-bottom: 20px;
+    margin-left: 10px;
 `;

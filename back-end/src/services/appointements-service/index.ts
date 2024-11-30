@@ -12,6 +12,12 @@ export async function getAllAppointementByClient(clientId: number) {
     return appointementsRepository.findAllAppointementByClientID(clientId);
 }
 
+export async function getAllClientsAppointementByMedic(medicId: number) {
+  const appointements = await appointementsRepository.getAllClientsAppointementByMedic(medicId);
+
+  return appointements;
+}
+
 export async function createAppointement({ clientId, medicId, appointementDate }: CreateAppointementParams): Promise<Appointement> {
     const medic = await medicsRepository.findByID(medicId)
   
@@ -63,6 +69,7 @@ export type CreateAppointementParams = Pick<Appointement, 'clientId' | 'medicId'
 
 const appointementService = {
   getAllAppointementByClient,
+  getAllClientsAppointementByMedic,
   createAppointement,
   updateAppointement,
   deleteAppointement,

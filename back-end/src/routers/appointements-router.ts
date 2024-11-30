@@ -1,11 +1,13 @@
 import { Router } from 'express';
 import { createAppointementSchema } from '../schemas';
-import { authenticateReceptionistToken, validateBody } from '../middlewares';
-import { createAppointement, deleteAppointement, getAllAppointementByClient, updateAppointement, deleteAllAppointementsByClient } from '../controllers';
+import { authenticateMedicToken, authenticateReceptionistToken, validateBody } from '../middlewares';
+import { createAppointement, deleteAppointement, getAllAppointementByClient,
+     updateAppointement, deleteAllAppointementsByClient, getAllClientsAppointementByMedic } from '../controllers';
 
 const appointementsRouter = Router();
 
 appointementsRouter
+    .get('/medic', authenticateMedicToken, getAllClientsAppointementByMedic)
     .all('/*', authenticateReceptionistToken)
     .get('/client/:id', getAllAppointementByClient)
     .post('/:medicIdNumber/:clientIdNumber', validateBody(createAppointementSchema), createAppointement)

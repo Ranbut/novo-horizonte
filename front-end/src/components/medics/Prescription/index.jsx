@@ -1,15 +1,18 @@
 import styled from "styled-components"
 import { PiKeyReturnFill } from "react-icons/pi";
+import { IoMdAdd, IoIosRefresh } from "react-icons/io";
 import useToken from "../../../hooks/useToken";
 import { useEffect, useState } from "react";
 import PacientCard from "../Pacients/PacientCard";
 import { getAllMedicClients, getAllPrescriptionsByClient } from "../../../services/medicApi";
 import PrescriptionCard from "./PrescriptionCard";
+import PrescriptionForm from "./PrescriptionForm";
 
 export default function Prescription(){
     const [clientSelected, setClientSelected] = useState(null);
     const [pacients, setPacients] = useState([]);
     const [prescriptions, setPrescriptions] = useState([]);
+    const [adding, setAdding] = useState(false);
     const token = useToken()
 
     function selectClient(pacient) {
@@ -43,13 +46,21 @@ export default function Prescription(){
     function renderPrescriptions(){
         return(
             <>
-                <ReturnButton onClick={() => {setClientSelected(null);}}>
+                <AddButton onClick={() => {setAdding(true)}}>
+                        Novo
+                    <IoMdAdd size={20}/>
+                </AddButton>
+                <ReturnButton onClick={() => {setClientSelected(null)}}>
                         Retornar
                     <PiKeyReturnFill size={20}/>
                 </ReturnButton>
+                <RefreshButton onClick={() => {selectClient(clientSelected)}}>
+                        Atualizar
+                    <IoIosRefresh size={20}/>
+                </RefreshButton>
                 <InfoBody>
                     {prescriptions.map((prescription, index) => (
-                        <PrescriptionCard prescription={prescription} key={index} />
+                        <PrescriptionCard prescription={prescription} count={index + 1} key={index} />
                     ))}
                 </InfoBody>
             </>
@@ -58,7 +69,17 @@ export default function Prescription(){
 
     return(
         <Body>
-            {!clientSelected ? renderPacients() : renderPrescriptions() }
+            {adding ? 
+            <>
+                <ReturnButton onClick={() => {setAdding(false)}}>
+                        Retornar
+                    <PiKeyReturnFill size={20}/>
+                </ReturnButton>
+                <h2>Nova Receita</h2>
+                <PrescriptionForm clientId={(clientSelected.id)}/>
+            </> : <></>}
+            {!clientSelected && !adding ? renderPacients() : <></> }
+            {clientSelected && !adding ? renderPrescriptions() : <></> }
         </Body>
     );
 }
@@ -86,4 +107,18 @@ const ReturnButton = styled.button`
     cursor: pointer;
     font-size: 25px;
     margin-bottom: 20px;
+    margin-left: 10px;
+`;
+
+const AddButton = styled.button`
+    cursor: pointer;
+    font-size: 25px;
+    margin-bottom: 20px;
+`;
+
+const RefreshButton = styled.button`
+    cursor: pointer;
+    font-size: 25px;
+    margin-bottom: 20px;
+    margin-left: 10px;
 `;

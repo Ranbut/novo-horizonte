@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import useToken from "../../../hooks/useToken";
-import { aproveRenewal } from "../../../services/medicApi";
+import { aproveRenewal, deletePrescriptionById } from "../../../services/medicApi";
 
 export default function PrescriptionCard({ prescription, count }){
 
@@ -28,6 +28,16 @@ export default function PrescriptionCard({ prescription, count }){
         }
     }
 
+    async function deletePrescription() {
+        try{
+            await deletePrescriptionById(prescription.id, token);
+            alert('Receita deletada!');
+        }
+        catch (error){
+            alert('Não conseguiu deletar a receita.\nTente novamente mais tarde.');
+        }
+    }
+
     return(
         <Body>
             <TextBody>
@@ -40,12 +50,17 @@ export default function PrescriptionCard({ prescription, count }){
                     ))}
                 </div>
                 <PrescriptionDate isExpired={isExpired}><strong>Expira em:</strong> {formattedDate}</PrescriptionDate>
-                <RenewButton
+                <Button
                     onClick={aprovePrescriptionRenewal}
                     disabled={!isExpired || !prescription.requestingRenewal}
                     >
                         Aprovar solicitação de renovação
-                </RenewButton>
+                </Button>
+                <div>
+                    <Button style={{color: 'red'}} onClick={deletePrescription}>
+                        Deletar
+                    </Button>
+                </div>
             </TextBody>
         </Body>
     );
@@ -68,6 +83,6 @@ const PrescriptionDate = styled.div`
     color: ${({ isExpired }) => (!isExpired ? '#ffffff' : '#ff0000')};
 `;
 
-const RenewButton = styled.button`
+const Button = styled.button`
     margin-top: 5px;
 `;

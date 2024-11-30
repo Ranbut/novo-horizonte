@@ -17,6 +17,24 @@ async function findAppointementByID(id: number) {
     });
   }
   
+  async function getAllClientsAppointementByMedic(medicId: number) {
+    return await prisma.appointement.findMany({
+      where: {
+        medicId
+      },
+      include: {
+        Client: {
+          select: { 
+            id: true,
+            name: true,
+            cpf: true
+          }
+        }
+      },
+      distinct: ['clientId'],
+    });
+  }
+
   async function createAppointement(data: Prisma.AppointementUncheckedCreateInput) {
     return prisma.appointement.create({
       data,
@@ -54,6 +72,7 @@ async function findAppointementByID(id: number) {
 const appointementRepository = {
     findAppointementByID,
     findAllAppointementByClientID,
+    getAllClientsAppointementByMedic,
     createAppointement,
     updateAppointement,
     deleteAppointement,

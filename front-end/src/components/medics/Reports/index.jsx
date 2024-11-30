@@ -2,16 +2,19 @@ import styled from "styled-components"
 import { PiKeyReturnFill } from "react-icons/pi";
 import useToken from "../../../hooks/useToken";
 import { useEffect, useState } from "react";
+import { IoMdAdd, IoIosRefresh } from "react-icons/io";
 import ReportCard from "./ReportCard";
 import ReadDocument from "../../ReadDocument";
 import PacientCard from "../Pacients/PacientCard";
 import { getAllMedicClients, getAllReportsByClient } from "../../../services/medicApi";
+import ReportForm from "./ReportForm";
 
 export default function Reports(){
     const [clientSelected, setClientSelected] = useState(null);
     const [pacients, setPacients] = useState([]);
     const [reportSelected, setReportSelected] = useState(null);
     const [reports, setReports] = useState([]);
+    const [adding, setAdding] = useState(false);
     const token = useToken()
 
     function selectClient(pacient) {
@@ -45,10 +48,18 @@ export default function Reports(){
     function renderReports(){
         return(
             <>
-                <ReturnButton onClick={() => {setClientSelected(null);}}>
+                <AddButton onClick={() => {setAdding(true)}}>
+                        Novo
+                    <IoMdAdd size={20}/>
+                </AddButton>
+                <ReturnButton onClick={() => {setClientSelected(null)}}>
                         Retornar
                     <PiKeyReturnFill size={20}/>
                 </ReturnButton>
+                <RefreshButton onClick={() => {selectClient(clientSelected)}}>
+                        Atualizar
+                    <IoIosRefresh size={20}/>
+                </RefreshButton>
                 <InfoBody>
                     {reports.map((report, index) => (
                         <ReportCard onClick={() => {setReportSelected(report)}} report={report} key={index} />
@@ -60,8 +71,17 @@ export default function Reports(){
 
     return(
         <Body>
+            {adding ? 
+            <>
+                <ReturnButton onClick={() => {setAdding(false)}}>
+                        Retornar
+                    <PiKeyReturnFill size={20}/>
+                </ReturnButton>
+                <h2>Novo Relátorio</h2>
+                <ReportForm clientId={(clientSelected.id)}/>
+            </> : <></>}
             {!clientSelected ? renderPacients() : <></> }
-            {clientSelected && !reportSelected ? renderReports() : <></>}
+            {clientSelected && !reportSelected && !adding ? renderReports() : <></>}
             {reportSelected ? 
             <>
                 <ReturnButton onClick={() => {setReportSelected()}}>
@@ -99,4 +119,18 @@ const ReturnButton = styled.button`
     cursor: pointer;
     font-size: 25px;
     margin-bottom: 20px;
+    margin-left: 10px;
+`;
+
+const AddButton = styled.button`
+    cursor: pointer;
+    font-size: 25px;
+    margin-bottom: 20px;
+`;
+
+const RefreshButton = styled.button`
+    cursor: pointer;
+    font-size: 25px;
+    margin-bottom: 20px;
+    margin-left: 10px;
 `;

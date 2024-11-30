@@ -46,7 +46,7 @@ export async function getAllExams(token) {
 }
 
 export async function requestRenewal(id, token) {
-  const response = await axios.put(`http://localhost:5000/prescriptions/renew/${id}`, {
+  const response = await axios.put(`http://localhost:5000/prescriptions/renew/${id}`, {}, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
