@@ -10,6 +10,8 @@ Projeto contendo front-end e back-end de uma clínica de saúde como trabalho pa
 
 **Banco de dados:** [PostgreSQL](https://www.postgresql.org/)
 
+[Mockup e design no Figma](https://www.figma.com/design/pi4Of8UqbJeX2HxsxUd8VO/Mockup-Cl%C3%ADnicas-de-Sa%C3%BAde?node-id=0-1&t=LfPpfStON2k3VUgF-1)
+
 #### Como executar na sua máquina localmente
 
 Para executar o projeto é necessário ter instalado [Node.js](https://nodejs.org/) e [PostgreSQL](https://www.postgresql.org/) na sua máquina.
