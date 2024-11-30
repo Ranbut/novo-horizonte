@@ -1,4 +1,4 @@
-# Clinica Novo-Horizonte
+# Clínica Novo-Horizonte
 Projeto contendo front-end e back-end de uma clínica de saúde como trabalho para o Projeto Integrador Transdisciplinar em Ciência da Computação II na UNIPÊ.
 
 #### Quais ferramentas e linguagens programação foram usadas?
