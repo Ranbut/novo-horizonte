@@ -4,6 +4,8 @@ Projeto contendo front-end e back-end de uma clínica de saúde como trabalho pa
 #### Quais ferramentas e linguagens programação foram usadas?
 **Linguagens programação:** JavaScript - Front-end; TypeScript - Back-end
 
+**Ferramentas:** [Node.js](https://nodejs.org/); [Figma](https://www.figma.com)
+
 **Bibliotecas e Frameworks:** [React](https://react.dev/) - Front-end; [Express.js](https://expressjs.com) - Back-end
 
 **Banco de dados:** [PostgreSQL](https://www.postgresql.org/)
