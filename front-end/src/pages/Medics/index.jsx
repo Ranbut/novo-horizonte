@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components"
-import userImage from "../../assets/user-profile-female.png"
+import userImage from "../../assets/user-profile-male.png"
 import InfoForm from "../../components/InfoForm";
 import UserContext from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
@@ -39,12 +39,12 @@ export default function Medics() {
             <MainBody>
                 <OptionsBody>
                     <OptionsSelection>
-                        <Option onClick={() => setSelectedOption("Pacients")}>Pacientes</Option>
-                        <Option onClick={() => setSelectedOption("Agenda")}>Agenda</Option>
-                        <Option onClick={() => setSelectedOption("InfoForm")}>Dados Pessoais</Option>
-                        <Option onClick={() => setSelectedOption("Reports")}>Relátorios</Option>
-                        <Option onClick={() => setSelectedOption("Prescription")}>Receitas</Option>
-                        <Option onClick={() => setSelectedOption("Exams")}>Exames</Option>
+                        <Option isSelected={selectedOption === "Pacients"} onClick={() => setSelectedOption("Pacients")}>Pacientes</Option>
+                        <Option isSelected={selectedOption === "Agenda"} onClick={() => setSelectedOption("Agenda")}>Agenda</Option>
+                        <Option isSelected={selectedOption === "InfoForm"} onClick={() => setSelectedOption("InfoForm")}>Dados Pessoais</Option>
+                        <Option isSelected={selectedOption === "Reports"} onClick={() => setSelectedOption("Reports")}>Relátorios</Option>
+                        <Option isSelected={selectedOption === "Prescription"} onClick={() => setSelectedOption("Prescription")}>Receitas</Option>
+                        <Option isSelected={selectedOption === "Exams"} onClick={() => setSelectedOption("Exams")}>Exames</Option>
                     </OptionsSelection>
                 </OptionsBody>
                 <MainSelected>
@@ -75,6 +75,9 @@ const Header = styled.div`
     font-size: 36px;
     display: flex;
     height: 100px;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 `;
 
 const UserImage = styled.img`
@@ -106,6 +109,9 @@ const LogoutButton = styled.button`
 const MainBody = styled.div`
     display: flex;
     background-color: #D9D9D9;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 `;
 
 const OptionsBody = styled.div`
@@ -124,7 +130,7 @@ const Option = styled.div`
     width: 280px;
     height: 70px;
     font-size: 24px;
-    background-color: #092E3F;
+    background-color: ${({ isSelected }) => (isSelected ? '#125575' : '#092E3F')};
     text-align: center;
     vertical-align: middle;
     line-height: 70px; 
@@ -138,7 +144,7 @@ const Option = styled.div`
 `;
 
 const MainSelected = styled.div`
-    margin-left: 40px;
+
 `;
 
 const Title = styled.h1`

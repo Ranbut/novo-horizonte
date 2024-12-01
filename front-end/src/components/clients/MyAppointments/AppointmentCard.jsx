@@ -18,15 +18,16 @@ export default function AppointmentCard({ appointement }){
             <TextBody>
                 <div>{appointement.Medic.name}</div>
                 <div><strong>{appointement.Medic.specialty}</strong></div>
-                <AppointementDate isExpired={isExpired}><strong>Data:</strong> {formattedDate}</AppointementDate>
             </TextBody>
+            <DetailsBody>
+                <AppointementDate isExpired={isExpired}><strong>Data:</strong> {formattedDate}</AppointementDate>
+            </DetailsBody>
         </Body>
     );
 }
 
 const Body = styled.div`
     width: 400px;
-    height: 70px;
     border-radius: 8px;
     background: linear-gradient(#646a6d 0%, #313435 100%);
 `;
@@ -35,8 +36,16 @@ const TextBody = styled.div`
     color: white;
     margin-left: 10px;
     margin-top: 5px;
+    border-bottom: solid #ffffff;
 `;
 
 const AppointementDate = styled.div`
     color: ${({ isExpired }) => (!isExpired ? '#ffffff' : '#ff0000')};;
+`;
+
+const DetailsBody = styled.div`
+    color: white;
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
 `;

@@ -73,7 +73,7 @@ export default function RegisterAppointment(){
                     </InputField>
                 </InputBody>
                 <SaveButton onClick={sendRegisterAppointment}>
-                    Salvar Alterações
+                    Marcar Consulta
                 </SaveButton>
             </InfoBody>
             

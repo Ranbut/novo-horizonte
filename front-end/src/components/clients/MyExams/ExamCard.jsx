@@ -10,26 +10,38 @@ export default function ExamCard({ onClick, exam }){
     const formattedDate = `${day}/${month}/${year}`;
     
     return(
-        <Body>
-            <TextBody onClick={() => onClick(exam)}>
+        <Body onClick={() => onClick(exam)}>
+            <TextBody>
                 <div><strong>{exam.title}</strong></div>
+            </TextBody>
+            <DetailsBody>
                 <div>{exam.Medic.name}</div>
                 <div><strong>{exam.Medic.specialty}</strong></div>
+            </DetailsBody>
+            <DetailsBody>
                 <div><strong>Data: </strong>{formattedDate}</div>
-            </TextBody>
+            </DetailsBody>
         </Body>
     );
 }
 
 const Body = styled.div`
     width: 350px;
-    height: 90px;
     border-radius: 8px;
     background: linear-gradient(#646a6d 0%, #313435 100%);
+    cursor: pointer;
 `;
 
 const TextBody = styled.div`
     color: white;
     margin-left: 10px;
     margin-top: 5px;
+    border-bottom: solid #ffffff;
+`;
+
+const DetailsBody = styled.div`
+    color: white;
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
 `;

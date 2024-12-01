@@ -25,6 +25,11 @@ export default function Navbar(){
               Sobre Nós
             </Link>
           </Option>
+          <Option>
+            <Link to="/clients/sign-in">
+              Acessar Aplicativo
+            </Link>
+          </Option>
         </OptionsContainer>
       </NavBar>
       )
@@ -41,7 +46,7 @@ const NavBar = styled.header`
 `
 
 const OptionsContainer = styled.div`
-  margin-left: 40vw;
+  margin-left: 35vw;
   display: flex;
   gap: 20px;
 `;

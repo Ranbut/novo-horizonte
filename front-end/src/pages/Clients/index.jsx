@@ -40,13 +40,13 @@ export default function Client() {
             <MainBody>
                 <OptionsBody>
                     <OptionsSelection>
-                        <Option onClick={() => setSelectedOption("MyMedics")}>Meus Médicos</Option>
-                        <Option onClick={() => setSelectedOption("MyAppointments")}>Minhas Consultas</Option>
-                        <Option onClick={() => setSelectedOption("InfoForm")}>Dados Pessoais</Option>
-                        <Option onClick={() => setSelectedOption("MyExams")}>Exames</Option>
-                        <Option onClick={() => setSelectedOption("MyReports")}>Relatórios</Option>
-                        <Option onClick={() => setSelectedOption("MyPrescriptions")}>Receitas</Option>
-                        <Option onClick={() => setSelectedOption("Payment")}>Área de Pagamento</Option> 
+                        <Option isSelected={selectedOption === "MyMedics"} onClick={() => setSelectedOption("MyMedics")}>Meus Médicos</Option>
+                        <Option isSelected={selectedOption === "MyAppointments"} onClick={() => setSelectedOption("MyAppointments")}>Minhas Consultas</Option>
+                        <Option isSelected={selectedOption === "InfoForm"} onClick={() => setSelectedOption("InfoForm")}>Dados Pessoais</Option>
+                        <Option isSelected={selectedOption === "MyExams"} onClick={() => setSelectedOption("MyExams")}>Exames</Option>
+                        <Option isSelected={selectedOption === "MyReports"} onClick={() => setSelectedOption("MyReports")}>Relatórios</Option>
+                        <Option isSelected={selectedOption === "MyPrescriptions"} onClick={() => setSelectedOption("MyPrescriptions")}>Receitas</Option>
+                        <Option isSelected={selectedOption === "Payment"} onClick={() => setSelectedOption("Payment")}>Área de Pagamento</Option> 
                     </OptionsSelection>
                 </OptionsBody>
                 <MainSelected>
@@ -79,6 +79,9 @@ const Header = styled.div`
     font-size: 36px;
     display: flex;
     height: 100px;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 `;
 
 const UserImage = styled.img`
@@ -110,6 +113,9 @@ const LogoutButton = styled.button`
 const MainBody = styled.div`
     display: flex;
     background-color: #D9D9D9;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 `;
 
 const OptionsBody = styled.div`
@@ -128,7 +134,7 @@ const Option = styled.div`
     width: 280px;
     height: 70px;
     font-size: 24px;
-    background-color: #092E3F;
+    background-color: ${({ isSelected }) => (isSelected ? '#125575' : '#092E3F')};
     text-align: center;
     vertical-align: middle;
     line-height: 70px; 
@@ -143,6 +149,7 @@ const Option = styled.div`
 
 const MainSelected = styled.div`
     margin-left: 40px;
+
 `;
 
 const Title = styled.h1`
